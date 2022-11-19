@@ -1,6 +1,5 @@
 public class Circuito {
-
-    private String nome_circuito;
+    private final String nome_circuito;
     private double distancia;
     private int n_curvas;
     private int n_chicanes;
@@ -14,6 +13,19 @@ public class Circuito {
         this.n_chicanes = that.n_chicanes;
         this.n_retas = that.n_retas;
         this.n_voltas = that.n_voltas;
+    }
+
+    public Circuito(String nome_circuito, int n_curvas, int n_chicanes, int n_voltas, double distancia) {
+        this.nome_circuito = nome_circuito;
+        /*
+         * cada curva tem no meio uma reta, mesma coisa com chicanes,
+         * mas há pelo menos uma reta a ligar uma curva e uma chicane
+         */
+        this.n_retas = (n_curvas - 1) + n_chicanes;
+        this.n_chicanes = n_chicanes;
+        this.n_curvas = n_curvas;
+        this.n_voltas = n_voltas;
+        this.distancia = distancia;
     }
 
     public String getnome() {
@@ -38,10 +50,6 @@ public class Circuito {
 
     public int getn_voltas() {
         return this.n_voltas;
-    }
-
-    public void setnome(String nome) {
-        this.nome_circuito = nome;
     }
 
     public void setdistancia(double dist) {
