@@ -1,12 +1,13 @@
 import Carro.Carro;
+import java.time.LocalDateTime;
 
-public class Registo {
-
+public class Registo implements Comparable<Registo> {
     private final int idRegisto;
     private int nAfinacoes;
     private final Carro carro;
     private final Piloto piloto;
     private final Jogador jogador;
+    private LocalDateTime dataRegisto;
 
     public Registo(int idRegisto, Carro c, Piloto p, Jogador j) {
         this.idRegisto = idRegisto;
@@ -14,13 +15,36 @@ public class Registo {
         this.carro = c;
         this.piloto = p;
         this.jogador = j;
+        this.dataRegisto = LocalDateTime.now();
     }
+
     public Registo(Registo that) {
         this.idRegisto = that.idRegisto;
         this.nAfinacoes = that.nAfinacoes;
         this.carro = that.carro.clone();
         this.piloto = that.piloto.clone();
         this.jogador = that.jogador.clone();
+        this.dataRegisto = LocalDateTime.from(this.dataRegisto);
+    }
+
+    public int compareTo(Registo r) {
+        return dataRegisto.compareTo(r.getDataRegisto());
+    }
+
+    public void setnAfinacoes(int nAfinacoes) {
+        this.nAfinacoes = nAfinacoes;
+    }
+
+    public Jogador getJogador() {
+        return jogador;
+    }
+
+    public LocalDateTime getDataRegisto() {
+        return dataRegisto;
+    }
+
+    public void setDataRegisto(LocalDateTime dataRegisto) {
+        this.dataRegisto = dataRegisto;
     }
 
     public int getIdRegisto() {

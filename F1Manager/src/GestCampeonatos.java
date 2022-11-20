@@ -1,7 +1,6 @@
 import Carro.Carro;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GestCampeonatos implements IGestCampeonatos {
@@ -30,5 +29,21 @@ public class GestCampeonatos implements IGestCampeonatos {
                 .stream()
                 .map(Registo::getCarro)
                 .collect(Collectors.toList());
+    }
+
+    public Map<Corrida, TreeSet<Iteracao>> simulaCampeonato() {
+        Map<Corrida, TreeSet<Iteracao>> r = new HashMap<>();
+
+        for(Corrida c : this.campeonato.listCorridas()) {
+            Simulacao s = new Simulacao(mr, c);
+            TreeSet<Iteracao> cur = r.get(c);
+            if(cur == null) {
+                cur = new TreeSet<>();
+                cur.add(s.simula());
+            } else {
+                cur.add(s.simula());
+            }
+        }
+        return r;
     }
 }

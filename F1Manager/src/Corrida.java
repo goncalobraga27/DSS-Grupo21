@@ -1,3 +1,5 @@
+import java.util.TreeMap;
+
 public class Corrida {
     private final String identificador;
     private final Circuito circuito;
