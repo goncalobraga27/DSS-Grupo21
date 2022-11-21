@@ -1,5 +1,3 @@
-import java.util.TreeMap;
-
 public class Corrida {
     private final String identificador;
     private final Circuito circuito;
@@ -9,7 +7,7 @@ public class Corrida {
     }
 
     public Circuito getCircuito() {
-        return circuito.clone();
+        return this.circuito.clone();
     }
 
     public String getIdentificador() {

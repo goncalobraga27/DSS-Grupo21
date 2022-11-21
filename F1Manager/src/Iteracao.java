@@ -1,26 +1,28 @@
 import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Iteracao implements Comparable<Iteracao>, Comparator<Iteracao> {
-    private TreeMap<Integer, Registo> resultados;
+    private TreeSet<Registo> resultados;
     private final String nomeCorrida;
     private final int nIteracao;
 
     public Iteracao(String nomeCorrida, int nIteracao) {
         this.nomeCorrida = nomeCorrida;
         this.nIteracao = nIteracao;
-        this.resultados = new TreeMap<>();
+        this.resultados = new TreeSet<>();
     }
 
-    public TreeMap<Integer, Registo> getResultados() {
+    // o comparator disto é relativo a uma ultrapassagem... espero mesmo que isto não implique mudanças
+    public TreeSet<Registo> getResultados() {
         return resultados;
     }
 
-    public void setResultados(TreeMap<Integer, Registo> resultados) {
-        for(Map.Entry<Integer, Registo> e : resultados.entrySet()) {
-            this.resultados.put(e.getKey(), e.getValue().clone());
+    public void setResultados(TreeSet<Registo> resultados) {
+        for(Registo r : resultados) {
+            this.resultados.add(r.clone());
         }
     }
 
