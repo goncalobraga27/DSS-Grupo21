@@ -8,5 +8,5 @@ public interface IGestSimulacao {
     public List<Carro> getCarros();
     public List<Corrida> getCorridas();
     public List<Registo> getRegistos();
-    Map<Corrida, TreeSet<Iteracao>> simulaCampeonato();
+    public Map<Corrida, TreeSet<Iteracao>> simulaCampeonato();
 }

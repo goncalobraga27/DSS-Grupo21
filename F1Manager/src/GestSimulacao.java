@@ -65,10 +65,9 @@ public class GestSimulacao implements IGestSimulacao {
             TreeSet<Iteracao> cur = r.get(c);
             if(cur == null) {
                 cur = new TreeSet<>();
-                cur.add(s.simula());
-            } else {
-                cur.add(s.simula());
+                r.put(c.clone(), cur);
             }
+            cur.add(s.simula());
         }
         return r;
     }
