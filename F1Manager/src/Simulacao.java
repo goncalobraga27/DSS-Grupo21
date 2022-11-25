@@ -17,6 +17,7 @@ public class Simulacao {
     }
 
     public Iteracao simula() {
-
+        // to be done
+        return new Iteracao("bla", 0);
     }
 }
