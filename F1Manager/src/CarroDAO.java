@@ -26,4 +26,35 @@ public class CarroDAO {
             throw new NullPointerException(e.getMessage());
         }
     }
+    /**
+     * Implementação do padrão Singleton
+     *
+     * @return devolve a instância única desta classe
+     */
+    public static CarroDAO getInstance() {
+        if (CarroDAO.singleton == null) {
+            CarroDAO.singleton = new CarroDAO();
+        }
+        return CarroDAO.singleton;
+    }
+    /**
+     * @return número de carros na base de dados
+     */
+    public int size() {
+        int i = 0;
+        try (Connection conn = DriverManager.getConnection(DAOConfig.URL, DAOConfig.USERNAME, DAOConfig.PASSWORD);
+             Statement stm = conn.createStatement();
+             ResultSet rs = stm.executeQuery("SELECT count(*) FROM carros")) {
+            if(rs.next()) {
+                i = rs.getInt(1);
+            }
+        }
+        catch (Exception e) {
+            // Erro a criar tabela...
+            e.printStackTrace();
+            throw new NullPointerException(e.getMessage());
+        }
+        return i;
+    }
+
 }
