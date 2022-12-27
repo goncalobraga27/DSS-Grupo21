@@ -1,5 +1,3 @@
-package Carro;
-
 public class GTHibr extends GT {
     private int motor_eletrico;
 

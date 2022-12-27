@@ -1,6 +1,5 @@
-package Carro;
-
 public abstract class Carro {
+    private String Id;
     private String marca;
     private String modelo;
     private String cilindrada;
@@ -64,4 +63,12 @@ public abstract class Carro {
     }
 
     abstract public Carro clone();
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        this.Id = id;
+    }
 }

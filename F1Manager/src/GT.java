@@ -1,5 +1,3 @@
-package Carro;
-
 public class GT extends Carro {
 
     private double taxa_degradacao;

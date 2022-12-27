@@ -5,6 +5,8 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class Campeonato {
+
+    private  String Id;
     private final String name; // unique
     private final Map<String, Corrida> lc;
 
@@ -45,5 +47,21 @@ public class Campeonato {
 
     public void addCorrida(Corrida c) {
         this.lc.put(c.getIdentificador(), c.clone());
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Map<String, Corrida> getLc() {
+        return lc;
     }
 }

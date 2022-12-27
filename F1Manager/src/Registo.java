@@ -1,4 +1,4 @@
-import Carro.Carro;
+
 import java.time.LocalDateTime;
 
 public class Registo implements Comparable<Registo> {

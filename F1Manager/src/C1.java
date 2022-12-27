@@ -1,6 +1,5 @@
-package Carro;
 
-public class C1 extends Carro {
+public abstract class C1 extends Carro {
 
     public C1() {
         super();

@@ -1,4 +1,4 @@
-public class DAOConfig {
+public class DAOconfig {
     static final String USERNAME = "tp";                       // Actualizar
     static final String PASSWORD = "tp";                       // Actualizar
     private static final String DATABASE = "trabalhoPratico";          // Actualizar
