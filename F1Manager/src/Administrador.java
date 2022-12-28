@@ -1,5 +1,6 @@
 public class Administrador extends Utilizador {
-    // há alguma variável de instância aqui?
+
+    private String Id;
 
     public Administrador(String user, String password) {
         super(user, password);
@@ -13,4 +14,14 @@ public class Administrador extends Utilizador {
     public Administrador clone() {
         return new Administrador(this);
     }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+
 }
