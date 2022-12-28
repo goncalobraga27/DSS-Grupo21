@@ -1,3 +1,3 @@
-# DSS-Grupo21
+# DSS Grupo 21 
 
-Melhor grupo de DSS
+Trabalho Prático da UC de Desenvolvimento de Sistemas de Software relativo ao 3ºAno da Licenciatura em Engenharia Informática 
