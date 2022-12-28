@@ -1,5 +1,6 @@
 public class Jogador extends Utilizador {
     private int pontuacao;
+    private String id;
 
     public Jogador(Jogador that) {
         super(that.getNomeUtilizador(), that.getPassword());
@@ -16,5 +17,13 @@ public class Jogador extends Utilizador {
 
     public Jogador clone() {
         return new Jogador(this);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
