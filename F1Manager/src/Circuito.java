@@ -15,7 +15,7 @@ public class Circuito {
         this.n_voltas = that.n_voltas;
     }
 
-    public Circuito(String nome_circuito, int n_curvas, int n_chicanes, int n_voltas, double distancia) {
+    public Circuito(String nome_circuito,double distancia, int n_curvas, int n_chicanes, int n_voltas) {
         this.nome_circuito = nome_circuito;
         /*
          * cada curva tem no meio uma reta, mesma coisa com chicanes,

@@ -6,6 +6,14 @@ public abstract class Carro {
     private String potencia;
     private String fiabilidade;
 
+    public Carro() {
+        this.marca = "";
+        this.modelo= "";
+        this.cilindrada="";
+        this.potencia="";
+        this.fiabilidade="";
+    }
+
     public Carro(String marca, String modelo, String cilindrada, String potencia, String fiabilidade) {
         this.marca = marca;
         this.modelo = modelo;

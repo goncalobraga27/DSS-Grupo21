@@ -1,49 +1,36 @@
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class CarroDAO implements Map<String,Carro> {
-    private static CarroDAO singleton = null;
+public class CircuitoDAO implements Map<String,Circuito> {
 
-    private CarroDAO() {
+    private static CircuitoDAO singleton = null;
 
+    private CircuitoDAO() {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement()) {
-            String sql = "CREATE TABLE IF NOT EXISTS carros(" +
-                    "Id varchar(10) NOT NULL PRIMARY KEY,"+
-                    "Categoria varchar(10) NOT NULL," +
-                    "Marca varchar(45) DEFAULT NULL," +
-                    "Modelo varchar(45) DEFAULT NULL," +
-                    "Cilindrada INT NOT NULL,"+
-                    "Potencia INT NOT NULL,"+
-                    "Fiabilidade INT NOT NULL,"+
-                    "TaxaDegradacao DOUBLE DEFAULT NULL,"+
-                    "MotorEletrico INT DEFAULT NULL";
-            stm.executeUpdate(sql);
+            String sql = "CREATE TABLE IF NOT EXISTS circuito(" +
+                    "nomeCircuito varchar(30) NOT NULL" +
+                    "distancia double NOT NULL"+
+                    "n_curvas int NOT NULL" +
+                    "n_chicanes int NOT NULL"+
+                    "n_voltas int NOT NULL";
+            ((Statement)stm).executeUpdate(sql);
         } catch (SQLException e) {
             // Erro a criar tabela...
             e.printStackTrace();
             throw new NullPointerException(e.getMessage());
         }
     }
-    /**
-     * Implementação do padrão Singleton
-     *
-     * @return devolve a instância única desta classe
-     */
-    public static CarroDAO getInstance() {
-        if (CarroDAO.singleton == null) {
-            CarroDAO.singleton = new CarroDAO();
-        }
-        return CarroDAO.singleton;
-    }
 
+    public static CircuitoDAO getInstance() {
+        if (CircuitoDAO.singleton == null) {
+            CircuitoDAO.singleton = new CircuitoDAO();
+        }
+        return CircuitoDAO.singleton;
+    }
     /**
      * Obter um carro, dado o seu id
      *
@@ -52,23 +39,20 @@ public class CarroDAO implements Map<String,Carro> {
      * @throws NullPointerException Em caso de erro - deveriam ser criadas exepções do projecto
      */
 
-    public Carro get(Object key) {
-        Carro t = null;
+    public Circuito get(Object key) {
+        Circuito c = null;
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT * FROM carros WHERE Id='"+key+"'")) {
+             ResultSet rs = stm.executeQuery("SELECT * FROM circuitos WHERE Id='"+key+"'")) {
             if (rs.next()) {  // A chave existe na tabela
-                // Reconstruir a colecção dos carros
-                //Collection<String> alunos = getCarros(key.toString(), stm);
-
-
+                c = new Circuito(rs.getString(0),rs.getDouble(1),rs.getInt(2),rs.getInt(3),rs.getInt(4));
             }
         } catch (SQLException e) {
             // Database error!
             e.printStackTrace();
             throw new NullPointerException(e.getMessage());
         }
-        return t;
+        return c;
     }
 
     /**
@@ -79,7 +63,7 @@ public class CarroDAO implements Map<String,Carro> {
         int i = 0;
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT count(*) FROM carros")) {
+             ResultSet rs = stm.executeQuery("SELECT count(*) FROM Circuitos")) {
             if(rs.next()) {
                 i = rs.getInt(1);
             }
@@ -115,7 +99,7 @@ public class CarroDAO implements Map<String,Carro> {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs =
-                     stm.executeQuery("SELECT Id FROM carros WHERE Id='"+key.toString()+"'")) {
+                     stm.executeQuery("SELECT nomeCircuito FROM circuito WHERE Id='"+key.toString()+"'")) {
             r = rs.next();
         } catch (SQLException e) {
             // Database error!
@@ -136,20 +120,20 @@ public class CarroDAO implements Map<String,Carro> {
      */
     @Override
     public boolean containsValue(Object value) {
-        Carro c = (Carro) value;
-        return this.containsKey(c.getId());
+        Circuito c = (Circuito) value;
+        return this.containsKey(c.getnome());
     }
 
     @Override
-    public Carro put(String key, Carro c) {
-        Carro res = null;
+    public Circuito put(String key, Circuito c) {
+        Circuito res = null;
         if (!this.containsKey(key)) {
             try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
                  Statement stm = conn.createStatement()) {
                 // Actualizar a turma
                 stm.executeUpdate(
-                        "INSERT INTO turmas VALUES ('" + c.getId() + "', '" + c.getMarca() +"', '"+c.getModelo()+"', '"+c.getCilindrada()+"', '"+c.getPotencia()+"', '"+c.getFiabilidade()+ "') "
-                ); // FALTA METER A CATEGORIA NA TABELA DOS CARROSDAO
+                        "INSERT INTO Circuitos VALUES ('" + c.getnome() + "', '" +c.getdistancia()+ "', '" +c.getn_curvas() + "') "+ "', '" +c.getn_chicanes() + "') "+ "', '" +c.getn_voltas()
+                ); // FALTA ACRESCENTAR CORRIDAS Á TABELA QUE ESTÃO COMO VARIAVEL DE INSTÂNCIA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             } catch (SQLException e) {
                 // Database error!
                 e.printStackTrace();
@@ -160,12 +144,12 @@ public class CarroDAO implements Map<String,Carro> {
     }
 
     @Override
-    public Carro remove(Object key) {
-        Carro c = this.get(key);
+    public Circuito remove(Object key) {
+        Circuito c = this.get(key);
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();) {
-            // apagar os carros
-            stm.executeUpdate("DELETE FROM carros WHERE Id='"+key+"'");
+            // apagar os Circuitos
+            stm.executeUpdate("DELETE FROM circuito WHERE nomeCircuito='"+key+"'");
         } catch (Exception e) {
             // Database error!
             e.printStackTrace();
@@ -175,9 +159,9 @@ public class CarroDAO implements Map<String,Carro> {
     }
 
     @Override
-    public void putAll(Map<? extends String, ? extends Carro> carros) {
-        for(Carro c : carros.values()) {
-            this.put(c.getId(), c);
+    public void putAll(Map<? extends String, ? extends Circuito> Circuitos) {
+        for(Circuito c : Circuitos.values()) {
+            this.put(c.getnome(), c);
         }
     }
 
@@ -185,7 +169,7 @@ public class CarroDAO implements Map<String,Carro> {
     public void clear() {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement()) {
-            stm.executeUpdate("TRUNCATE carros");
+            stm.executeUpdate("TRUNCATE circuito");
         } catch (SQLException e) {
             // Database error!
             e.printStackTrace();
@@ -202,14 +186,14 @@ public class CarroDAO implements Map<String,Carro> {
      * @return Todos os carros da base de dados
      */
     @Override
-    public Collection<Carro> values() {
-        Collection<Carro> res = new HashSet<>();
+    public Collection<Circuito> values() {
+        Collection<Circuito> res = new HashSet<>();
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT Id FROM carros")) { // ResultSet com os ids de todas as turmas
+             ResultSet rs = stm.executeQuery("SELECT nomeCircuito FROM circuito")) {
             while (rs.next()) {
-                String idC = rs.getString("Id"); // Obtemos um id do carro do ResultSet
-                Carro c = this.get(idC);                    // Utilizamos o get para construir os carros uma a uma
+                String idC = rs.getString("nomeCircuito"); // Obtemos um id do carro do ResultSet
+                Circuito c = this.get(idC);                    // Utilizamos o get para construir os carros uma a uma
                 res.add(c);                                 // Adiciona o carro ao resultado.
             }
         } catch (Exception e) {
@@ -220,10 +204,7 @@ public class CarroDAO implements Map<String,Carro> {
         return res;
     }
     @Override
-    public Set<Entry<String, Carro>> entrySet() {
-        throw new NullPointerException("public Set<Map.Entry<String,Aluno>> entrySet() not implemented!");
+    public Set<Entry<String, Circuito>> entrySet() {
+        throw new NullPointerException( "not implemented!");
     }
-
-
-
 }
