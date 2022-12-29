@@ -6,19 +6,12 @@
  */
 package uminho.dss.trabalhopratico.data;
 
-import uminho.dss.trabalhopratico.business.Aluno;
-import uminho.dss.trabalhopratico.business.Sala;
-import uminho.dss.trabalhopratico.business.Turma;
-
 import java.sql.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import static java.util.stream.Collectors.toList;
-
-import static java.util.stream.Collectors.*;
 
 /**
  * Versão incompleta de um DAO para Turmas

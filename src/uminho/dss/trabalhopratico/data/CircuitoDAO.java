@@ -1,12 +1,10 @@
 package uminho.dss.trabalhopratico.data;
 
 import uminho.dss.trabalhopratico.business.Circuito;
+import uminho.dss.trabalhopratico.business.SeccaoCircuito;
 
 import java.sql.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class CircuitoDAO implements Map<String, Circuito> {
 
@@ -15,13 +13,23 @@ public class CircuitoDAO implements Map<String, Circuito> {
     private CircuitoDAO() {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement()) {
-            String sql = "CREATE TABLE IF NOT EXISTS circuito(" +
-                    "nomeCircuito varchar(30) NOT NULL," +
+             String sql = "CREATE TABLE IF NOT EXISTS circuito(" +
+                    "nomeCircuito varchar(30) NOT NULL PRIMARY KEY" +
                     "distancia double NOT NULL,"+
                     "n_curvas int NOT NULL," +
                     "n_chicanes int NOT NULL,"+
                     "n_voltas int NOT NULL)";
-            ((Statement)stm).executeUpdate(sql);
+             stm.executeUpdate(sql);
+
+            sql = "CREATE TABLE IF NOT EXISTS SeccaoCircuito(" +
+                    "nomeCircuito varchar(30) NOT NULL," +
+                    "tipoSeccao int NOT NULL,"+
+                    "n_ordem int NOT NULL,"+
+                    "gdu double NOT NULL"+
+                    "PRIMARY KEY (nomeCircuito,n_ordem)"+
+                    "foreign key(nomeCircuito) references circuito(nomeCircuito))";
+
+            stm.executeUpdate(sql);
         } catch (SQLException e) {
             // Erro a criar tabela...
             e.printStackTrace();
@@ -45,11 +53,17 @@ public class CircuitoDAO implements Map<String, Circuito> {
 
     public Circuito get(Object key) {
         Circuito c = null;
+        ArrayList<SeccaoCircuito> seccoes= new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT * FROM circuitos WHERE Id='"+key+"'")) {
+             ResultSet rs = stm.executeQuery("SELECT * FROM circuito WHERE Id='"+key+"'")) {
             if (rs.next()) {  // A chave existe na tabela
-               // c = new Circuito(rs.getString(1),rs.getDouble(2),rs.getInt(3),rs.getInt(4),rs.getInt(5));
+                ResultSet r = stm.executeQuery("SELECT * FROM SeccaoCircuito WHERE Id='"+key+"'");
+                while (r.next()) {
+                    SeccaoCircuito s = new SeccaoCircuito(r.getInt(2),r.getInt(3),r.getDouble(4));
+                    seccoes.add(s);
+                }
+                c = new Circuito(rs.getString(1),rs.getDouble(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),seccoes);
             }
         } catch (SQLException e) {
             // Database error!
@@ -125,7 +139,7 @@ public class CircuitoDAO implements Map<String, Circuito> {
     @Override
     public boolean containsValue(Object value) {
         Circuito c = (Circuito) value;
-        return this.containsKey(c.getnome());
+        return this.containsKey(c.getNome_circuito());
     }
 
     @Override
@@ -136,8 +150,14 @@ public class CircuitoDAO implements Map<String, Circuito> {
                  Statement stm = conn.createStatement()) {
                 // Actualizar a turma
                 stm.executeUpdate(
-                        "INSERT INTO Circuitos VALUES ('" + c.getnome() + "', '" +c.getdistancia()+ "', '" +c.getn_curvas() + "') "+ "', '" +c.getn_chicanes() + "') "+ "', '" +c.getn_voltas()
-                ); // FALTA ACRESCENTAR CORRIDAS Á TABELA QUE ESTÃO COMO VARIAVEL DE INSTÂNCIA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        "INSERT INTO Circuitos VALUES ('" + c.getNome_circuito() + "', '" +c.getDistancia()+ "', '" +c.getN_curvas() + "', '" +c.getN_chicanes() + "', '" +c.getN_voltas()+ "')'"
+                );
+                for (SeccaoCircuito m : c.getSeccoes()) {
+                    stm.executeUpdate(
+                            "INSERT INTO SeccaoCircuito VALUES ('" + c.getNome_circuito() + "', '" +m.getTipoSeccao()+ "', '" +m.getOrdem() + "', '" +m.getGDU() + "', '" + c.getN_voltas()+"') "
+                    );
+                }
+                // FALTA ACRESCENTAR CORRIDAS Á TABELA QUE ESTÃO COMO VARIAVEL DE INSTÂNCIA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             } catch (SQLException e) {
                 // Database error!
                 e.printStackTrace();
@@ -154,6 +174,7 @@ public class CircuitoDAO implements Map<String, Circuito> {
              Statement stm = conn.createStatement();) {
             // apagar os Circuitos
             stm.executeUpdate("DELETE FROM circuito WHERE nomeCircuito='"+key+"'");
+            stm.executeUpdate("DELETE FROM SeccaoCircuito WHERE nomeCircuito='"+key+"'");
         } catch (Exception e) {
             // Database error!
             e.printStackTrace();
@@ -165,7 +186,7 @@ public class CircuitoDAO implements Map<String, Circuito> {
     @Override
     public void putAll(Map<? extends String, ? extends Circuito> Circuitos) {
         for(Circuito c : Circuitos.values()) {
-            this.put(c.getnome(), c);
+            this.put(c.getNome_circuito(), c);
         }
     }
 
@@ -174,6 +195,7 @@ public class CircuitoDAO implements Map<String, Circuito> {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement()) {
             stm.executeUpdate("TRUNCATE circuito");
+            stm.executeUpdate("TRUNCATE SeccaoCircuito");
         } catch (SQLException e) {
             // Database error!
             e.printStackTrace();

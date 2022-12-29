@@ -41,48 +41,60 @@ public class Circuito {
         }
     }
 
-    public String getnome() {
-        return this.nome_circuito;
+    public String getNome_circuito() {
+        return nome_circuito;
     }
 
-    public double getdistancia() {
-        return this.distancia;
+    public void setNome_circuito(String nome_circuito) {
+        this.nome_circuito = nome_circuito;
     }
 
-    public int getn_curvas() {
-        return this.n_curvas;
+    public double getDistancia() {
+        return distancia;
     }
 
-    public int getn_chicanes() {
-        return this.n_chicanes;
+    public void setDistancia(double distancia) {
+        this.distancia = distancia;
     }
 
-    public int getn_retas() {
-        return this.n_retas;
+    public int getN_curvas() {
+        return n_curvas;
     }
 
-    public int getn_voltas() {
-        return this.n_voltas;
+    public void setN_curvas(int n_curvas) {
+        this.n_curvas = n_curvas;
     }
 
-    public void setdistancia(double dist) {
-        this.distancia = dist;
+    public int getN_chicanes() {
+        return n_chicanes;
     }
 
-    public void setn_curvas(int curvas) {
-        this.n_curvas = curvas;
+    public void setN_chicanes(int n_chicanes) {
+        this.n_chicanes = n_chicanes;
     }
 
-    public void setn_chicanes(int chicanes) {
-        this.n_chicanes = chicanes;
+    public int getN_retas() {
+        return n_retas;
     }
 
-    public void setn_retas(int retas) {
-        this.n_retas = retas;
+    public void setN_retas(int n_retas) {
+        this.n_retas = n_retas;
     }
 
-    public void set_nvoltas(int voltas) {
-        this.n_voltas = voltas;
+    public int getN_voltas() {
+        return n_voltas;
+    }
+
+    public void setN_voltas(int n_voltas) {
+        this.n_voltas = n_voltas;
+    }
+
+    public ArrayList<SeccaoCircuito> getSeccoes() {
+        return seccoes;
+    }
+
+    public void setSeccoes(ArrayList<SeccaoCircuito> seccoes) {
+        this.seccoes = seccoes;
     }
 
     public Circuito clone() {
