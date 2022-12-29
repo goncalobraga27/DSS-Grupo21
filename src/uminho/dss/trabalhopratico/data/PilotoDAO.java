@@ -1,6 +1,9 @@
 package uminho.dss.trabalhopratico.data;
 
+
 import uminho.dss.trabalhopratico.business.Circuito;
+import uminho.dss.trabalhopratico.business.Piloto;
+import uminho.dss.trabalhopratico.business.Piloto;
 
 import java.sql.*;
 import java.util.Collection;
@@ -8,19 +11,17 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class CircuitoDAO implements Map<String, Circuito> {
+public class PilotoDAO implements Map<String,Piloto> {
 
-    private static CircuitoDAO singleton = null;
+    private static PilotoDAO singleton = null;
 
-    private CircuitoDAO() {
+    private PilotoDAO() {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement()) {
-            String sql = "CREATE TABLE IF NOT EXISTS circuito(" +
-                    "nomeCircuito varchar(30) NOT NULL," +
-                    "distancia double NOT NULL,"+
-                    "n_curvas int NOT NULL," +
-                    "n_chicanes int NOT NULL,"+
-                    "n_voltas int NOT NULL)";
+            String sql = "CREATE TABLE IF NOT EXISTS piloto(" +
+                    "nomePiloto varchar(45) NOT NULL PRIMARY KEY," +
+                    "chuvaTempoSeco double DEFAULT 0.0,"+
+                    "segurancaAgressividade double DEFAULT 0.0)";
             ((Statement)stm).executeUpdate(sql);
         } catch (SQLException e) {
             // Erro a criar tabela...
@@ -29,45 +30,34 @@ public class CircuitoDAO implements Map<String, Circuito> {
         }
     }
 
-    public static CircuitoDAO getInstance() {
-        if (CircuitoDAO.singleton == null) {
-            CircuitoDAO.singleton = new CircuitoDAO();
+    public static PilotoDAO getInstance() {
+        if (PilotoDAO.singleton == null) {
+            PilotoDAO.singleton = new PilotoDAO();
         }
-        return CircuitoDAO.singleton;
+        return PilotoDAO.singleton;
     }
-    /**
-     * Obter um carro, dado o seu id
-     *
-     * @param key id do carro
-     * @return do carro caso exista (null noutro caso)
-     * @throws NullPointerException Em caso de erro - deveriam ser criadas exepções do projecto
-     */
 
-    public Circuito get(Object key) {
-        Circuito c = null;
+    public Piloto get(Object key) {
+        Piloto p = null;
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT * FROM circuitos WHERE Id='"+key+"'")) {
+             ResultSet rs = stm.executeQuery("SELECT * FROM piloto WHERE nomePiloto='"+key+"'")) {
             if (rs.next()) {  // A chave existe na tabela
-               // c = new Circuito(rs.getString(1),rs.getDouble(2),rs.getInt(3),rs.getInt(4),rs.getInt(5));
+                p = new Piloto(rs.getString(1),rs.getDouble(2),rs.getDouble(3));
             }
         } catch (SQLException e) {
             // Database error!
             e.printStackTrace();
             throw new NullPointerException(e.getMessage());
         }
-        return c;
+        return p;
     }
-
-    /**
-     * @return número de carros na base de dados
-     */
     @Override
     public int size() {
         int i = 0;
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT count(*) FROM Circuitos")) {
+             ResultSet rs = stm.executeQuery("SELECT count(*) FROM piloto")) {
             if(rs.next()) {
                 i = rs.getInt(1);
             }
@@ -80,30 +70,18 @@ public class CircuitoDAO implements Map<String, Circuito> {
         return i;
     }
 
-    /**
-     * Método que verifica se existem carros
-     *
-     * @return true se existirem 0 carros
-     */
     @Override
     public boolean isEmpty() {
         return this.size() == 0;
     }
 
-    /**
-     * Método que cerifica se um id de turma existe na base de dados
-     *
-     * @param key id da turma
-     * @return true se a turma existe
-     * @throws NullPointerException Em caso de erro - deveriam ser criadas exepções do projecto
-     */
     @Override
     public boolean containsKey(Object key) {
         boolean r;
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs =
-                     stm.executeQuery("SELECT nomeCircuito FROM circuito WHERE Id='"+key.toString()+"'")) {
+                     stm.executeQuery("SELECT nomePiloto FROM piloto WHERE nomePiloto'"+key.toString()+"'")) {
             r = rs.next();
         } catch (SQLException e) {
             // Database error!
@@ -113,31 +91,22 @@ public class CircuitoDAO implements Map<String, Circuito> {
         return r;
     }
 
-    /**
-     * Verifica se uma turma existe na base de dados
-     *
-     * Esta implementação é provisória. Devia testar o objecto e não apenas a chave.
-     *
-     * @param value ...
-     * @return ...
-     * @throws NullPointerException Em caso de erro - deveriam ser criadas exepções do projecto
-     */
     @Override
     public boolean containsValue(Object value) {
-        Circuito c = (Circuito) value;
-        return this.containsKey(c.getnome());
+        Piloto p = (Piloto) value;
+        return this.containsKey(p.getNomePiloto());
     }
 
     @Override
-    public Circuito put(String key, Circuito c) {
-        Circuito res = null;
+    public Piloto put(String key, Piloto c) {
+        Piloto res = null;
         if (!this.containsKey(key)) {
             try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
                  Statement stm = conn.createStatement()) {
                 // Actualizar a turma
                 stm.executeUpdate(
-                        "INSERT INTO Circuitos VALUES ('" + c.getnome() + "', '" +c.getdistancia()+ "', '" +c.getn_curvas() + "') "+ "', '" +c.getn_chicanes() + "') "+ "', '" +c.getn_voltas()
-                ); // FALTA ACRESCENTAR CORRIDAS Á TABELA QUE ESTÃO COMO VARIAVEL DE INSTÂNCIA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        "INSERT INTO piloto VALUES ('" + c.getNomePiloto() + "', '" + c.getChuvaTempoSeco() + "', '" + c.getSegurancaAgressividade() + "')"
+                );
             } catch (SQLException e) {
                 // Database error!
                 e.printStackTrace();
@@ -146,26 +115,26 @@ public class CircuitoDAO implements Map<String, Circuito> {
         }
         return res;
     }
-
+        
     @Override
-    public Circuito remove(Object key) {
-        Circuito c = this.get(key);
+    public Piloto remove(Object key) {
+        Piloto p = this.get(key);
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();) {
-            // apagar os Circuitos
-            stm.executeUpdate("DELETE FROM circuito WHERE nomeCircuito='"+key+"'");
+            // apagar os Pilotos
+            stm.executeUpdate("DELETE FROM piloto WHERE nomePiloto='"+key+"'");
         } catch (Exception e) {
             // Database error!
             e.printStackTrace();
             throw new NullPointerException(e.getMessage());
         }
-        return c;
+        return p;
     }
 
     @Override
-    public void putAll(Map<? extends String, ? extends Circuito> Circuitos) {
-        for(Circuito c : Circuitos.values()) {
-            this.put(c.getnome(), c);
+    public void putAll(Map<? extends String, ? extends Piloto> pilotos) {
+        for(Piloto c : pilotos.values()) {
+            this.put(c.getNomePiloto(), c);
         }
     }
 
@@ -173,7 +142,7 @@ public class CircuitoDAO implements Map<String, Circuito> {
     public void clear() {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement()) {
-            stm.executeUpdate("TRUNCATE circuito");
+            stm.executeUpdate("TRUNCATE piloto");
         } catch (SQLException e) {
             // Database error!
             e.printStackTrace();
@@ -186,18 +155,15 @@ public class CircuitoDAO implements Map<String, Circuito> {
         throw new NullPointerException("Not implemented!");
     }
 
-    /**
-     * @return Todos os carros da base de dados
-     */
     @Override
-    public Collection<Circuito> values() {
-        Collection<Circuito> res = new HashSet<>();
+    public Collection<Piloto> values() {
+        Collection<Piloto> res = new HashSet<>();
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT nomeCircuito FROM circuito")) {
+             ResultSet rs = stm.executeQuery("SELECT nomePiloto FROM piloto")) {
             while (rs.next()) {
-                String idC = rs.getString("nomeCircuito"); // Obtemos um id do carro do ResultSet
-                Circuito c = this.get(idC);                    // Utilizamos o get para construir os carros uma a uma
+                String idC = rs.getString("nomePiloto"); // Obtemos um id do carro do ResultSet
+                Piloto c = this.get(idC);                    // Utilizamos o get para construir os carros uma a uma
                 res.add(c);                                 // Adiciona o carro ao resultado.
             }
         } catch (Exception e) {
@@ -207,8 +173,9 @@ public class CircuitoDAO implements Map<String, Circuito> {
         }
         return res;
     }
+
     @Override
-    public Set<Entry<String, Circuito>> entrySet() {
+    public Set<Entry<String, Piloto>> entrySet() {
         throw new NullPointerException( "not implemented!");
     }
 }

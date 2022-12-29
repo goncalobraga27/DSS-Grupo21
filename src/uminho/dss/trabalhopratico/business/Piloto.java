@@ -3,67 +3,38 @@ package uminho.dss.trabalhopratico.business;
 public class Piloto {
 
     private String nomePiloto;
-    private float chuvaTempoSeco;
-    private float segurancaAgressividade;
+    private double chuvaTempoSeco;
+    private double segurancaAgressividade;
 
-    /**
-     *
-     * @param nomePiloto
-     */
     public void setNomePiloto(String nomePiloto) {
         this.nomePiloto = nomePiloto;
     }
-
     public String getNomePiloto() {
         return this.nomePiloto;
     }
-
-    /**
-     *
-     * @param chuvaTempoSeco
-     */
-    public void setChuvaTempoSeco(float chuvaTempoSeco) {
+    public void setChuvaTempoSeco(double chuvaTempoSeco) {
         this.chuvaTempoSeco = chuvaTempoSeco;
     }
-
-    /**
-     *
-     * @param segurancaAgressividade
-     */
-    public void setSegurancaAgressividade(float segurancaAgressividade) {
+    public void setSegurancaAgressividade(double segurancaAgressividade) {
         this.segurancaAgressividade = segurancaAgressividade;
     }
-
-    public float getChuvaTempoSeco() {
+    public double getChuvaTempoSeco() {
         return this.chuvaTempoSeco;
     }
-
-    public float getSegurancaAgressividade() {
+    public double getSegurancaAgressividade() {
         return this.segurancaAgressividade;
     }
-
-    public Piloto() {
-        // TODO - implement Piloto.Piloto
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     *
-     * @param p
-     */
     public Piloto(Piloto p) {
-        // TODO - implement Piloto.Piloto
-        throw new UnsupportedOperationException();
+        this.nomePiloto=p.getNomePiloto();
+        this.segurancaAgressividade=p.getSegurancaAgressividade();
+        this.chuvaTempoSeco=p.getChuvaTempoSeco();
     }
-
-    public Piloto(String nomePiloto, float chuvaTempoSeco, float segurancaAgressividade) {
-        // TODO - implement Piloto.Piloto
-        throw new UnsupportedOperationException();
+    public Piloto(String nomePiloto, double chuvaTempoSeco, double segurancaAgressividade) {
+        this.nomePiloto=nomePiloto;
+        this.segurancaAgressividade=segurancaAgressividade;
+        this.chuvaTempoSeco=chuvaTempoSeco;
     }
-
-    public Piloto clone() {
-        // TODO - implement Piloto.clone
-        throw new UnsupportedOperationException();
+    public Piloto clone(){
+        return new Piloto(this);
     }
-
 }
