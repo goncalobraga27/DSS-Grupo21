@@ -43,6 +43,7 @@ public class AdministradorDAO implements Map<String, Administrador> {
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery("SELECT * FROM administrador WHERE Username='"+key+"'")) {
             if (rs.next()) {  // A chave existe na tabela
+                a=new Administrador(rs.getString(1),rs.getString(2));
             }
         } catch (SQLException e) {
             // Database error!
@@ -120,7 +121,7 @@ public class AdministradorDAO implements Map<String, Administrador> {
     @Override
     public boolean containsValue(Object value) {
         Administrador c = (Administrador) value;
-        return this.containsKey(c.getId());
+        return c.equals(this.get(c.getNomeUtilizador()));
     }
 
     @Override
@@ -157,7 +158,7 @@ public class AdministradorDAO implements Map<String, Administrador> {
     @Override
     public void putAll(Map<? extends String, ? extends Administrador> Administradores) {
         for(Administrador c : Administradores.values()) {
-            this.put(c.getId(), c);
+            this.put(c.getNomeUtilizador(), c);
         }
     }
 

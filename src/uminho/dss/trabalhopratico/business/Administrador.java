@@ -1,8 +1,8 @@
 package uminho.dss.trabalhopratico.business;
 
-public class Administrador extends Utilizador {
+import java.util.Objects;
 
-    private String Id;
+public class Administrador extends Utilizador {
 
     public Administrador(String user, String password) {
         super(user, password);
@@ -17,12 +17,12 @@ public class Administrador extends Utilizador {
         return new Administrador(this);
     }
 
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String id) {
-        Id = id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Administrador that = (Administrador) o;
+        return super.equals(that);
     }
 
 

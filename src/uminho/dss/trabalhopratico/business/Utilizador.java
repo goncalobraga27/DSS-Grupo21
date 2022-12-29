@@ -1,5 +1,7 @@
 package uminho.dss.trabalhopratico.business;
 
+import java.util.Objects;
+
 public abstract class Utilizador {
     private String password;
     private String nomeUtilizador;
@@ -35,4 +37,20 @@ public abstract class Utilizador {
     }
 
     public abstract Utilizador clone();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Utilizador that = (Utilizador) o;
+        return this.getPassword().equals(that.getPassword()) && this.getNomeUtilizador().equals(that.getNomeUtilizador());
+    }
+
+    @Override
+    public String toString() {
+        return "Utilizador{" +
+                "password='" + password + '\'' +
+                ", nomeUtilizador='" + nomeUtilizador + '\'' +
+                '}';
+    }
 }

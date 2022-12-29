@@ -2,16 +2,15 @@ package uminho.dss.trabalhopratico.business;
 
 public class Jogador extends Utilizador {
     private int pontuacao;
-    private String id;
+
 
     public Jogador(Jogador that) {
         super(that.getNomeUtilizador(), that.getPassword());
         this.pontuacao = that.pontuacao;
     }
-
-    public Jogador(String username,String password){
+    public Jogador(String username,String password,int pontuacao){
         super(username,password);
-        this.pontuacao = 0;
+        this.pontuacao = pontuacao;
     }
     public int getPontuacao() {
         return this.pontuacao;
@@ -25,11 +24,19 @@ public class Jogador extends Utilizador {
         return new Jogador(this);
     }
 
-    public String getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Jogador that = (Jogador) o;
+        return super.equals(that) && this.pontuacao==that.getPontuacao();
     }
 
-    public void setId(String id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Jogador{" +
+                super.toString()+
+                "pontuacao=" + pontuacao +
+                '}';
     }
 }

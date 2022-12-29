@@ -1,6 +1,7 @@
 package uminho.dss.trabalhopratico.data;
 
 
+import uminho.dss.trabalhopratico.business.Administrador;
 import uminho.dss.trabalhopratico.business.Jogador;
 
 import java.sql.*;
@@ -17,7 +18,8 @@ public class JogadorDAO implements Map<String, Jogador> {
              Statement stm = conn.createStatement()) {
             String sql = "CREATE TABLE IF NOT EXISTS jogador (" +
                     "Username varchar(45) NOT NULL PRIMARY KEY," +
-                    "Password varchar(45) NOT NULL)";
+                    "Password varchar(45) NOT NULL,"+
+                    "Pontuacao INT DEFAULT 0)";
             stm.executeUpdate(sql);
         } catch (SQLException e) {
             // Erro a criar tabela...
@@ -45,6 +47,7 @@ public class JogadorDAO implements Map<String, Jogador> {
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery("SELECT * FROM jogador WHERE Username='"+key+"'")) {
             if (rs.next()) {  // A chave existe na tabela
+                a=new Jogador(rs.getString(1),rs.getString(2),rs.getInt(3));
             }
         } catch (SQLException e) {
             // Database error!
@@ -122,7 +125,13 @@ public class JogadorDAO implements Map<String, Jogador> {
     @Override
     public boolean containsValue(Object value) {
         Jogador c = (Jogador) value;
-        return this.containsKey(c.getId());
+        Jogador j=this.get(c.getNomeUtilizador());
+        if (j!=null && j.getNomeUtilizador().equals(c.getNomeUtilizador()) && j.getPassword().equals(c.getPassword())){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override
@@ -160,7 +169,7 @@ public class JogadorDAO implements Map<String, Jogador> {
     @Override
     public void putAll(Map<? extends String, ? extends Jogador> jogadores) {
         for(Jogador c : jogadores.values()) {
-            this.put(c.getId(), c);
+            this.put(c.getNomeUtilizador(), c);
         }
     }
 

@@ -72,10 +72,10 @@ public class Main {
                         System.out.println("Insira a sua password!");
                         String password = scann.nextLine();
                         if (tom==1) {
-                            f1m.validaJogador(username, password);
+                            System.out.println(f1m.validaJogador(username, password));
                         }
                         else {
-                            f1m.validaAdministrador(username,password);
+                            System.out.println(f1m.validaAdministrador(username,password));
                         }
                     }
                 }

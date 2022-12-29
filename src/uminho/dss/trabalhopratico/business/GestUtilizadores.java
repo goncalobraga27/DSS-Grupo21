@@ -15,7 +15,7 @@ public class GestUtilizadores {
     }
 
     public void addJogador(String username,String password){
-        Jogador j = new Jogador(username,password);
+        Jogador j = new Jogador(username,password,0);
         this.jogadores.put(j.getNomeUtilizador(), j);
     }
 
@@ -24,13 +24,13 @@ public class GestUtilizadores {
         this.administradores.put(a.getNomeUtilizador(), a);
     }
 
-    public void validaJogador(String username,String password){
-        Jogador j = new Jogador(username,password);
-        this.jogadores.containsValue(j);
+    public boolean validaJogador(String username,String password){
+        Jogador j = new Jogador(username,password,0);
+        return this.jogadores.containsValue(j);
     }
 
-    public void validaAdministrador (String username,String password){
+    public boolean validaAdministrador (String username,String password){
         Administrador a = new Administrador(username,password);
-        this.administradores.containsValue(a);
+        return this.administradores.containsValue(a);
     }
 }
