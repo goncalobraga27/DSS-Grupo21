@@ -23,4 +23,14 @@ public class GestUtilizadores {
         Administrador a = new Administrador(username,password);
         this.administradores.put(a.getNomeUtilizador(), a);
     }
+
+    public void validaJogador(String username,String password){
+        Jogador j = new Jogador(username,password);
+        this.jogadores.containsValue(j);
+    }
+
+    public void validaAdministrador (String username,String password){
+        Administrador a = new Administrador(username,password);
+        this.administradores.containsValue(a);
+    }
 }

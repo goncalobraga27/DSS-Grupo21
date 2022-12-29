@@ -13,7 +13,11 @@ public class Main {
         Scanner is = new Scanner(System.in);
         Menu menu = new Menu(new String[]{
                 "Registar-se",
-                "Autenticar-se"
+                "Autenticar-se",
+                "Adicionar Circuito",
+                "Adicionar Piloto",
+                "Adicionar Campeonato",
+                "Adicionar Carro",
         });
 
         menu.setPreCondition(1,()-> !logged);
@@ -53,19 +57,32 @@ public class Main {
         });
 
         menu.setHandler(2,()->{
-            try {
-                System.out.println("Insira o seu nome de utilizador!");
-                String username = scann.nextLine();
-                System.out.println("Insira a sua password!");
-                String password = scann.nextLine();
-            }
-            catch (Exception e) {
-                System.out.println("Dados inválidos");
-            }
+                int tom = -1;
+                for (int i = 0; tom < 0 || tom > 2; i++) {
+                    if (i > 0)
+                        System.out.println("A opção escolhida não se encontra nas opções disponíveis!\n");
+                    System.out.println("Selecione o tipo de utilizador que pretende");
+                    System.out.println("1-> Jogador");
+                    System.out.println("2-> Administrador");
+                    System.out.println("0-> Terminar Operação");
+                    tom = is.nextInt();
+                    if (tom!=0) {
+                        System.out.println("Insira o seu nome de utilizador!");
+                        String username = scann.nextLine();
+                        System.out.println("Insira a sua password!");
+                        String password = scann.nextLine();
+                        if (tom==1) {
+                            f1m.validaJogador(username, password);
+                        }
+                        else {
+                            f1m.validaAdministrador(username,password);
+                        }
+                    }
+                }
         });
 
 
-/*
+
 
         menu.setHandler(3,()->{
             try {
@@ -94,7 +111,7 @@ public class Main {
                 System.out.println("Dados inválidos");
             }
         });
-
+/*
         menu.setHandler(5,()->{
             try {
                 System.out.println("Insira a posiçao de x");

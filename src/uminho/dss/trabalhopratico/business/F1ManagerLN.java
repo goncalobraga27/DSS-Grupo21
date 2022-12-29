@@ -48,4 +48,11 @@ public class F1ManagerLN {
         gUsers.addAdministrador(username,password);
     }
 
+    public void validaJogador(String username,String password){
+        gUsers.validaJogador(username,password);
+    }
+    public void validaAdministrador(String username,String password){
+        gUsers.validaAdministrador(username,password);
+    }
+
 }
