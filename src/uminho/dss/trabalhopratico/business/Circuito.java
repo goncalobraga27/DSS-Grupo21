@@ -36,6 +36,7 @@ public class Circuito {
         this.n_curvas = n_curvas;
         this.n_voltas = n_voltas;
         this.distancia = distancia;
+        this.seccoes=new ArrayList<>();
         for (SeccaoCircuito m :  s ){
             this.seccoes.add (m.clone());
         }

@@ -14,7 +14,7 @@ public class CircuitoDAO implements Map<String, Circuito> {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement()) {
              String sql = "CREATE TABLE IF NOT EXISTS circuito(" +
-                    "nomeCircuito varchar(30) NOT NULL PRIMARY KEY" +
+                    "nomeCircuito varchar(30) NOT NULL PRIMARY KEY," +
                     "distancia double NOT NULL,"+
                     "n_curvas int NOT NULL," +
                     "n_chicanes int NOT NULL,"+
@@ -25,8 +25,8 @@ public class CircuitoDAO implements Map<String, Circuito> {
                     "nomeCircuito varchar(30) NOT NULL," +
                     "tipoSeccao int NOT NULL,"+
                     "n_ordem int NOT NULL,"+
-                    "gdu double NOT NULL"+
-                    "PRIMARY KEY (nomeCircuito,n_ordem)"+
+                    "gdu double NOT NULL,"+
+                    "PRIMARY KEY (nomeCircuito,n_ordem),"+
                     "foreign key(nomeCircuito) references circuito(nomeCircuito))";
 
             stm.executeUpdate(sql);
@@ -117,7 +117,7 @@ public class CircuitoDAO implements Map<String, Circuito> {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs =
-                     stm.executeQuery("SELECT nomeCircuito FROM circuito WHERE Id='"+key.toString()+"'")) {
+                     stm.executeQuery("SELECT nomeCircuito FROM circuito WHERE nomeCircuito='"+key.toString()+"'")) {
             r = rs.next();
         } catch (SQLException e) {
             // Database error!
@@ -150,11 +150,11 @@ public class CircuitoDAO implements Map<String, Circuito> {
                  Statement stm = conn.createStatement()) {
                 // Actualizar a turma
                 stm.executeUpdate(
-                        "INSERT INTO Circuitos VALUES ('" + c.getNome_circuito() + "', '" +c.getDistancia()+ "', '" +c.getN_curvas() + "', '" +c.getN_chicanes() + "', '" +c.getN_voltas()+ "')'"
+                        "INSERT INTO circuito VALUES ('" + c.getNome_circuito() + "', '" +c.getDistancia()+ "', '" +c.getN_curvas() + "', '" +c.getN_chicanes() + "', '" +c.getN_voltas()+ "')"
                 );
                 for (SeccaoCircuito m : c.getSeccoes()) {
                     stm.executeUpdate(
-                            "INSERT INTO SeccaoCircuito VALUES ('" + c.getNome_circuito() + "', '" +m.getTipoSeccao()+ "', '" +m.getOrdem() + "', '" +m.getGDU() + "', '" + c.getN_voltas()+"') "
+                            "INSERT INTO SeccaoCircuito VALUES ('" + c.getNome_circuito() + "', '" +m.getTipoSeccao()+ "', '" +m.getOrdem() + "', '" +m.getGDU() + "') "
                     );
                 }
                 // FALTA ACRESCENTAR CORRIDAS Á TABELA QUE ESTÃO COMO VARIAVEL DE INSTÂNCIA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

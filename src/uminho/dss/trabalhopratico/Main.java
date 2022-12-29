@@ -15,6 +15,7 @@ public class Main {
         boolean logged= false;
         Scanner scann = new Scanner(System.in);
         Scanner is = new Scanner(System.in);
+        Scanner insertDouble = new Scanner(System.in);
         Menu menu = new Menu(new String[]{
                 "Registar-se",
                 "Autenticar-se",
@@ -90,15 +91,15 @@ public class Main {
                 System.out.println("Insira a nome do circuito:");
                 String nome = scann.nextLine();
                 System.out.println("Insira a distância do circuito:");
-                double distancia= is.nextDouble();
+                double distancia= insertDouble.nextDouble();
                 int num_curvas=0;
                 int num_chicanes=0;
                 int opt=-1;
                 ArrayList<SeccaoCircuito> seccoes = new ArrayList<>();
-                for (int i = 0; opt < 0 || opt > 2; i++) {
-                    if (i > 0)
+                for (int i = 0; opt !=0; i++) {
+                    if (i > 0 && (opt < 0 || opt > 2))
                         System.out.println("A opção escolhida não se encontra nas opções disponíveis!\n");
-                    System.out.println("Selecione o tipo de de manobra a adionar ao circuito:");
+                    System.out.println("Selecione o tipo de manobra a adicionar ao circuito:");
                     System.out.println("1-> Curva");
                     System.out.println("2-> Chicane");
                     System.out.println("0-> Terminar Operação");
@@ -116,10 +117,10 @@ public class Main {
                 }
                 System.out.println("Insira o número de voltas do circuito:");
                 int n_voltas = is.nextInt();
-                Circuito c = new Circuito(nome,distancia,num_curvas,num_chicanes,n_voltas,seccoes);
+                f1m.addCircuito(nome,distancia,num_curvas,num_chicanes,n_voltas,seccoes);
             }
             catch (Exception e) {
-                System.out.println("Dados inválidos");
+                System.out.println(e);
             }
         });
 
