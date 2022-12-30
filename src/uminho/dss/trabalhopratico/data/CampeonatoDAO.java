@@ -8,10 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class CampeonatoDAO implements Map<String, Campeonato> {
     private static CampeonatoDAO singleton = null;
@@ -21,9 +18,9 @@ public class CampeonatoDAO implements Map<String, Campeonato> {
              Statement stm = conn.createStatement()) {
            String sql = "CREATE TABLE IF NOT EXISTS campeonatos(" +
                     "NomeCamp varchar(10) NOT NULL,"+
-                    "NomeCirc varchar(10) NOT NULL," +
-                    "PRIMARY KEY (NomeCamp,NomeCirc),"+
-                    "foreign key(NomeCir) references circuito(nomeCircuito))";
+                    "nomeCirc varchar(45) NOT NULL," +
+                    "PRIMARY KEY (NomeCamp,nomeCirc),"+
+                    "foreign key(nomeCirc) references circuito(nomeCircuito))";
             stm.executeUpdate(sql);
         } catch (SQLException e) {
             // Erro a criar tabela...
@@ -51,12 +48,13 @@ public class CampeonatoDAO implements Map<String, Campeonato> {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery("SELECT * FROM campeonatos WHERE NomeCamp='"+key+"'")) {
-            if (rs.next()) {  // A chave existe na tabela
-                ResultSet r = stm.executeQuery("SELECT * FROM circuitos WHERE NomeCamp='"+key+"'");
-                while (r.next()) {
-
-                }
+              // A chave existe na tabela
+            ArrayList<Circuito> listaCircuitos =new ArrayList<>();
+            while (rs.next()) {
+                    listaCircuitos.add(new Circuito(rs.getString(2)));
             }
+            c=new Campeonato(key.toString(),listaCircuitos);
+
         } catch (SQLException e) {
             // Database error!
             e.printStackTrace();

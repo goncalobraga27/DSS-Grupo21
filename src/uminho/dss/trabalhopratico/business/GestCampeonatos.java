@@ -5,6 +5,7 @@ import uminho.dss.trabalhopratico.data.CarroDAO;
 import uminho.dss.trabalhopratico.data.CircuitoDAO;
 import uminho.dss.trabalhopratico.data.PilotoDAO;
 
+import java.sql.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,40 +42,55 @@ public class GestCampeonatos implements IGestCampeonatos {
         this.pilotos.put(p.getNomePiloto(),p);
     }
 
-    public void addCarro(String nome_circuito,double distancia, int n_curvas, int n_chicanes, int n_voltas) {
-        //Circuito c = new Circuito(nome_circuito, distancia, n_curvas, n_chicanes, n_voltas);
-        //this.circuitos.put(c.getnome(), c);
-    }
-
     public void addCarroC1Hbr(String marca,String modelo,int potenciaMC,int PotenciaME) {
         C1Hbr c1= new C1Hbr(marca,modelo,potenciaMC,PotenciaME);
+        this.carros.put(c1.getMarca(),c1);
     }
     public void addCarroC1(String marca,String modelo, int potenciaMC) {
         C1 c1= new C1(marca,modelo,potenciaMC);
+        this.carros.put(c1.getMarca(),c1);
     }
 
     public void addCarroC2Hbr(String marca,String modelo,int cilindrada,int potenciaMC,int PotenciaME) {
         C2Hbr c2 = new C2Hbr(marca,modelo,cilindrada,potenciaMC,PotenciaME);
+        this.carros.put(c2.getMarca(),c2);
     }
 
     public void addCarroC2(String marca,String modelo,int cilindrada,int potenciaMC) {
         C2 c2 = new C2(marca,modelo,cilindrada,potenciaMC);
+        this.carros.put(c2.getMarca(),c2);
     }
 
-    public void addCarroSC(String marca,String modelo,int cilindrada,int potenciaMC) {
-        C2 c2 = new C2(marca,modelo,cilindrada,potenciaMC);
+    public void addCarroSC(String marca,String modelo,int cilindrada,int potenciaMC,double fiabilidade) {
+        SC c2 = new SC(marca,modelo,cilindrada,potenciaMC,fiabilidade);
+        this.carros.put(c2.getMarca(),c2);
     }
 
     public void addCarroGT(String marca,String modelo,int cilindrada,int potenciaMC,double taxa_degradacao) {
         GT gt = new GT(marca,modelo,cilindrada,potenciaMC,taxa_degradacao);
+        this.carros.put(gt.getMarca(),gt);
     }
     public void addCarroGTHbr(String marca,String modelo,int cilindrada,int potenciaMC,double taxa_degradacao, int potenciaME) {
         GTHibr gthbr = new GTHibr(marca,modelo,cilindrada,potenciaMC,taxa_degradacao,potenciaME);
+        this.carros.put(gthbr.getMarca(),gthbr);
     }
 
 
     public Collection<Circuito> getCircuitos() {
         return this.circuitos.values();
     }
+
+    public Piloto getPiloto(String nomePiloto){return this.pilotos.get(nomePiloto);}
+
+    public Campeonato getCampeonato(String nome){
+        Campeonato c = new Campeonato();
+        c=this.campeonatos.get(nome);
+        ArrayList <Circuito> lCirc=new ArrayList<>();
+        for(Circuito m : c.getLc().values()){
+            lCirc.add(this.circuitos.get(m.getNome_circuito()));
+        }
+        return  new Campeonato(nome,lCirc);
+    }
+
 
 }

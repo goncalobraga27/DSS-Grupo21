@@ -23,7 +23,6 @@ public class Campeonato {
                         Circuito::getNome_circuito, c -> c
                 ));
     }
-
     public Campeonato clone() {
         return new Campeonato(this);
     }
@@ -55,5 +54,13 @@ public class Campeonato {
 
     public Map<String, Circuito> getLc() {
         return lc;
+    }
+
+    @Override
+    public String toString() {
+        return "Campeonato{" +
+                "name='" + name + '\'' +
+                ", lc=" + lc +
+                '}';
     }
 }

@@ -9,8 +9,16 @@ public class GTHibr extends GT {
     }
 
     public GTHibr(GTHibr p) {
-        super(p.getMarca(), p.getModelo(), p.getCilindrada(), p.getPotencia(), p.gettaxa_degradacao());
+        super(p);
         this.motor_eletrico = p.motor_eletrico;
+    }
+
+    public int getMotor_eletrico() {
+        return motor_eletrico;
+    }
+
+    public void setMotor_eletrico(int motor_eletrico) {
+        this.motor_eletrico = motor_eletrico;
     }
 
     public GTHibr clone() {

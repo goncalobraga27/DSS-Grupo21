@@ -41,6 +41,16 @@ public class Circuito {
             this.seccoes.add (m.clone());
         }
     }
+    public Circuito(String nome_circuito) {
+        this.nome_circuito = nome_circuito;
+        this.n_retas = 0;
+        this.n_chicanes = 0;
+        this.n_curvas = 0;
+        this.n_voltas = 0;
+        this.distancia =0;
+        this.seccoes=new ArrayList<>();
+    }
+
 
     public String getNome_circuito() {
         return nome_circuito;

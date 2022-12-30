@@ -11,7 +11,7 @@ import java.util.TreeSet;
 
 public interface IGestSimulacao {
     public List<Carro> getCarros();
-    public List<Corrida> getCorridas();
-    public List<Registo> getRegistos();
-    public Map<Corrida, TreeSet<Iteracao>> simulaCampeonato();
+    //public List<Corrida> getCorridas();
+    //public List<Registo> getRegistos();
+    //public Map<Corrida, TreeSet<Iteracao>> simulaCampeonato();
 }

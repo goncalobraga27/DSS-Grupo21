@@ -28,7 +28,6 @@ public class CircuitoDAO implements Map<String, Circuito> {
                     "gdu double NOT NULL,"+
                     "PRIMARY KEY (nomeCircuito,n_ordem),"+
                     "foreign key(nomeCircuito) references circuito(nomeCircuito))";
-
             stm.executeUpdate(sql);
         } catch (SQLException e) {
             // Erro a criar tabela...
@@ -56,9 +55,9 @@ public class CircuitoDAO implements Map<String, Circuito> {
         ArrayList<SeccaoCircuito> seccoes= new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT * FROM circuito WHERE Id='"+key+"'")) {
+             ResultSet rs = stm.executeQuery("SELECT * FROM circuito WHERE nomeCircuito='"+key+"'")) {
             if (rs.next()) {  // A chave existe na tabela
-                ResultSet r = stm.executeQuery("SELECT * FROM SeccaoCircuito WHERE Id='"+key+"'");
+                ResultSet r = stm.executeQuery("SELECT * FROM SeccaoCircuito WHERE nomeCircuito='"+key+"'");
                 while (r.next()) {
                     SeccaoCircuito s = new SeccaoCircuito(r.getInt(2),r.getInt(3),r.getDouble(4));
                     seccoes.add(s);

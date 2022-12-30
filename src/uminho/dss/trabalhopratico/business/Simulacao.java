@@ -10,8 +10,8 @@ public class Simulacao {
     private final Circuito circuito;
     private final List<Registo> lr;
 
-    public Simulacao(Map<Integer, Registo> registers, Corrida corrida) {
-        this.circuito = corrida.getCircuito().clone();
+    public Simulacao(Map<Integer, Registo> registers, Circuito c) {
+        this.circuito=c.clone();
         this.lr = registers.values()
                 .stream()
                 .map(Registo::clone)

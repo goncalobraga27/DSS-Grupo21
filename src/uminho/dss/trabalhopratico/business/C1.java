@@ -13,7 +13,7 @@ public class C1 extends Carro {
     }
 
     public C1(C1 p) {
-        super(p.getMarca(), p.getModelo(), p.getCilindrada(), p.getPotencia(), p.getFiabilidade());
+        super(p);
     }
 
     @Override

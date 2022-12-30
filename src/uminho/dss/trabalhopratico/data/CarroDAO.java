@@ -1,6 +1,6 @@
 package uminho.dss.trabalhopratico.data;
 
-import uminho.dss.trabalhopratico.business.Carro;
+import uminho.dss.trabalhopratico.business.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -19,15 +19,14 @@ public class CarroDAO implements Map<String, Carro> {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement()) {
             String sql = "CREATE TABLE IF NOT EXISTS carros(" +
-                    "Id varchar(10) NOT NULL PRIMARY KEY,"+
                     "Categoria varchar(10) NOT NULL," +
-                    "Marca varchar(45) DEFAULT NULL," +
-                    "Modelo varchar(45) DEFAULT NULL," +
+                    "MarcaModelo varchar(45) DEFAULT NULL," +
                     "Cilindrada INT NOT NULL,"+
                     "Potencia INT NOT NULL,"+
                     "Fiabilidade DOUBLE NOT NULL,"+
                     "TaxaDegradacao DOUBLE DEFAULT NULL,"+
-                    "MotorEletrico INT DEFAULT NULL)";
+                    "MotorEletrico INT DEFAULT NULL," +
+                    "PRIMARY KEY (MarcaModelo))";
             stm.executeUpdate(sql);
         } catch (SQLException e) {
             // Erro a criar tabela...
@@ -118,7 +117,7 @@ public class CarroDAO implements Map<String, Carro> {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs =
-                     stm.executeQuery("SELECT Id FROM carros WHERE Id='"+key.toString()+"'")) {
+                     stm.executeQuery("SELECT MarcaModelo FROM carros WHERE MarcaModelo='"+key.toString()+"'")) {
             r = rs.next();
         } catch (SQLException e) {
             // Database error!
@@ -150,9 +149,32 @@ public class CarroDAO implements Map<String, Carro> {
             try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
                  Statement stm = conn.createStatement()) {
                 // Actualizar a turma
-                stm.executeUpdate(
-                        "INSERT INTO turmas VALUES ('" + c.getId() + "', '" + c.getMarca() +"', '"+c.getModelo()+"', '"+c.getCilindrada()+"', '"+c.getPotencia()+"', '"+c.getFiabilidade()+ "') "
-                ); // FALTA METER A CATEGORIA NA TABELA DOS CARROSDAO
+                if(c.getClass() == C1Hbr.class) {
+                    C1Hbr c1= (C1Hbr) c;
+                    stm.executeUpdate(
+                            "INSERT INTO carros(Categoria,MarcaModelo,Cilindrada,Potencia,Fiabilidade,MotorEletrico) VALUES ('" +"C1Hbr"+  "', '" + c1.getMarca() +  "', '" + c1.getCilindrada() + "', '" + c1.getPotencia() + "', '" + c1.getFiabilidade() + "', '" + ((C1Hbr) c).getMotor_eletrico() + "') "
+                    );
+                }
+                else if(c.getClass() == C2Hbr.class) {
+                    C2Hbr c1= (C2Hbr) c;
+                    stm.executeUpdate(
+                            "INSERT INTO carros(Categoria,MarcaModelo,Cilindrada,Potencia,Fiabilidade,MotorEletrico) VALUES ('" +"C2Hbr"+  "', '" + c1.getMarca() +  "', '" + c1.getCilindrada() + "', '" + c1.getPotencia() + "', '" + c1.getFiabilidade() + "', '" + ((C2Hbr) c).getMotor_eletrico() + "') "
+                    );
+                }
+                else if(c.getClass() == GTHibr.class) {
+                    GTHibr c1= (GTHibr) c;
+                    stm.executeUpdate(
+                            "INSERT INTO carros(Categoria,MarcaModelo,Cilindrada,Potencia,Fiabilidade,TaxaDegradacao,MotorEletrico) VALUES ('" +"GTHibr"+  "', '" + c1.getMarca() +  "', '" + c1.getCilindrada() + "', '" + c1.getPotencia() + "', '" + c1.getFiabilidade() + "', '" + c1.gettaxa_degradacao()+"', '" +((GTHibr) c).getMotor_eletrico() + "') "
+                    );
+                }
+                else if (c.getClass() == SC.class){
+                    SC c1= (SC) c;
+                    stm.executeUpdate(
+                            "INSERT INTO carros(Categoria,MarcaModelo,Cilindrada,Potencia,Fiabilidade) VALUES ('" +c.getClass().toString()+  "', '" + c.getMarca() +  "', '" + c.getCilindrada() + "', '" + c.getPotencia() + "', '" + c.getFiabilidade() + "') "
+                    ); // FALTA METER A CATEGORIA NA TABELA DOS CARROSDAO
+                }
+               // else if (c.getClass()==)
+
             } catch (SQLException e) {
                 // Database error!
                 e.printStackTrace();

@@ -1,6 +1,6 @@
 package uminho.dss.trabalhopratico.business;
 
-public class C1Hbr extends C1{
+public class C1Hbr extends C1 {
     private int motor_eletrico;
 
     public C1Hbr(String marca, String modelo,int potencia,int eletrico) {
@@ -9,8 +9,16 @@ public class C1Hbr extends C1{
     }
 
     public C1Hbr(C1Hbr p) {
-        super(p.getMarca(), p.getModelo(), p.getPotencia());
+        super(p);
         this.motor_eletrico = p.motor_eletrico;
+    }
+
+    public int getMotor_eletrico() {
+        return motor_eletrico;
+    }
+
+    public void setMotor_eletrico(int motor_eletrico) {
+        this.motor_eletrico = motor_eletrico;
     }
 
     public C1Hbr clone() {

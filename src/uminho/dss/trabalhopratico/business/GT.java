@@ -15,7 +15,7 @@ public class GT extends Carro {
     }
 
     public GT(GT that) {
-        super(that.getMarca(), that.getModelo(), that.getCilindrada(), that.getPotencia(), that.getFiabilidade());
+        super(that);
         this.taxa_degradacao = that.taxa_degradacao;
     }
 

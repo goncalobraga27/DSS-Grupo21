@@ -152,7 +152,7 @@ public class Main {
 
         menu.setHandler(5,()->{
             try {
-                System.out.println("Insira o nome do Piloto a registar");
+                System.out.println("Insira o nome do campeonato a registar");
                 String nome = scann.nextLine();
                 int opt=-1;
                 ArrayList<String> circuitos = new ArrayList<>();
@@ -177,6 +177,7 @@ public class Main {
                     }
                 }
                 f1m.addCampeonato(nome,circuitos);
+                f1m.getCampeonato(nome);
             }
             catch (Exception e) {
                 System.out.println(e);
@@ -211,9 +212,16 @@ public class Main {
                         System.out.println("Insira a potência do motor de combustão do carro:");
                         int potenciaMC = is.nextInt();
                         double taxa=0;
+                        double fiabilidade=0;
                         if (opt == 3) {
                             System.out.println("Insira a taxa de degradação do carro:");
                             taxa = is.nextDouble();
+                            System.out.println("Insira a fiabilidade do carro:");
+                            fiabilidade=is.nextDouble();
+                        }
+                        if(opt==4){
+                            System.out.println("Insira a fiabilidade do carro:");
+                            fiabilidade=is.nextDouble();
                         }
                         if (opt ==1 || opt==2 || opt==3) {
 
@@ -247,8 +255,11 @@ public class Main {
                                     else if (opt==1) {
                                         f1m.addCarroC1(marca,modelo,potenciaMC);
                                     }
-                                    else
+                                    else if (opt==2)
                                         f1m.addCarroC2(marca,modelo,cilindrada,potenciaMC);
+                                    else {
+                                        f1m.addCarroSC(marca,modelo,cilindrada,potenciaMC,fiabilidade);
+                                    }
 
                                 }
                             }

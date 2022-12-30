@@ -2,11 +2,11 @@ package uminho.dss.trabalhopratico.business;
 
 public class SC extends Carro {
     public SC(SC that) {
-        super(that.getMarca(), that.getModelo(), that.getCilindrada(),that.getPotencia(), that.getFiabilidade());
+        super(that);
     }
 
-    public SC(String marca, String modelo, int cilindrada, int potencia, double fiabilidade, double taxa_degradacao) {
-        super(marca, modelo, cilindrada, potencia, fiabilidade);
+    public SC(String marca, String modelo, int cilindrada, int potencia, double fiabilidade) {
+        super(marca, modelo,2500, potencia, fiabilidade);
     }
 
     public SC clone() {

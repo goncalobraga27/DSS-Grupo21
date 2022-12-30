@@ -46,15 +46,15 @@ public class F1ManagerLN {
         this.campeonatos.addCarroC2(marca,modelo,cilindrada,potenciaMC);
     }
 
-    public void addCarroSC(String marca,String modelo,int cilindrada,int potenciaMC) {
-        this.campeonatos.addCarroSC(marca,modelo,cilindrada,potenciaMC);
+    public void addCarroSC(String marca,String modelo,int cilindrada,int potenciaMC,double fiabilidade) {
+        this.campeonatos.addCarroSC(marca,modelo,cilindrada,potenciaMC,fiabilidade);
     }
 
     public void addCarroGT(String marca,String modelo,int cilindrada,int potenciaMC,double taxa_degradacao) {
         this.campeonatos.addCarroGT(marca,modelo,cilindrada,potenciaMC,taxa_degradacao);
     }
     public void addCarroGTHbr(String marca,String modelo,int cilindrada,int potenciaMC,double taxa_degradacao,int potenciaME) {
-        this.campeonatos.addCarroGTHbr(marca,modelo,cilindrada,potenciaMC);
+        this.campeonatos.addCarroGTHbr(marca,modelo,cilindrada,potenciaMC,taxa_degradacao,potenciaME);
     }
 
     public Collection<Circuito> getCircuitos() {
@@ -80,5 +80,17 @@ public class F1ManagerLN {
             return value>3000 && value<5000;
         else
             return value>2000 && value<4000;
+    }
+
+    private void getPiloto(String nomePiloto){
+        this.campeonatos.getPiloto(nomePiloto);
+    }
+
+    //private void getCarro(String nomePiloto){
+        //this.campeonatos.getCarro(nomePiloto);
+    //}
+
+    public  Campeonato getCampeonato(String nome){
+        return this.campeonatos.getCampeonato(nome);
     }
 }

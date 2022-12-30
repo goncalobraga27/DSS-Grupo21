@@ -13,7 +13,7 @@ public class C2 extends Carro {
     }
 
     public C2(C2 p) {
-        super(p.getMarca(), p.getModelo(), p.getCilindrada(), p.getPotencia(), p.getFiabilidade());
+        super(p);
     }
 
     public C2 clone () {

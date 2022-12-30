@@ -1,9 +1,5 @@
 package uminho.dss.trabalhopratico.business;
 
-import uminho.dss.trabalhopratico.business.Corrida;
-import uminho.dss.trabalhopratico.business.Iteracao;
-import uminho.dss.trabalhopratico.business.Simulacao;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -11,20 +7,14 @@ public class GestSimulacao implements IGestSimulacao {
     private final Campeonato campeonato;
     private int nRegistos;
     private Map<Integer, Registo> mr;
-    private Map<String, Map<String, Carro>> carros;
-    private Map<String, Piloto> pilotos;
 
     public GestSimulacao(Campeonato c) {
         this.campeonato = c;
         this.mr = new HashMap<>();
-        this.carros = new HashMap<>();
-        this.pilotos = new HashMap<>();
     }
 
     public GestSimulacao(Campeonato c, Registo r) {
         this.campeonato = c;
-        this.carros = new HashMap<>();
-        this.pilotos = new HashMap<>();
         this.mr = new HashMap<>();
         mr.put(r.getIdRegisto(), r.clone());
     }
@@ -33,9 +23,9 @@ public class GestSimulacao implements IGestSimulacao {
         return this.campeonato.clone();
     }
 
-    @Override
-    public List<Corrida> getCorridas() {
-        return campeonato.listCorridas(); // this clones, no need to clone again
+
+    /*public List<Corrida> getCorridas() {
+      return campeonato.listCorridas(); // this clones, no need to clone again
     }
 
     @Override
@@ -45,7 +35,7 @@ public class GestSimulacao implements IGestSimulacao {
                 .map(Registo::clone)
                 .collect(Collectors.toList());
     }
-
+    */
     public List<Carro> getCarros() {
         return this.mr.values()
                 .stream()
@@ -53,18 +43,19 @@ public class GestSimulacao implements IGestSimulacao {
                 .collect(Collectors.toList());
     }
 
-    public void addRegisto(Jogador j, String marca, String modelo, String nomePiloto) {
+    /*public void addRegisto(Jogador j, String marca, String modelo, String nomePiloto) {
         // assumindo que a marca e o modelo já existiam e por isso "confia Joca"
-        Carro c = this.carros.get(marca).get(modelo);
+        //Carro c = this.carros.get(marca).get(modelo);
         Piloto p = this.pilotos.get(nomePiloto);
         Registo r = new Registo(nRegistos++, c, p, j);
         this.mr.put(nRegistos, r);
     }
 
+
     public Map<Corrida, TreeSet<Iteracao>> simulaCampeonato() {
         Map<Corrida, TreeSet<Iteracao>> r = new HashMap<>();
 
-        for(Corrida c : this.campeonato.listCorridas()) {
+        for(Circuito c : this.campeonato.listCorridas()) {
             Simulacao s = new Simulacao(mr, c);
             TreeSet<Iteracao> cur = r.get(c);
             if(cur == null) {
@@ -75,4 +66,5 @@ public class GestSimulacao implements IGestSimulacao {
         }
         return r;
     }
+     */
 }
