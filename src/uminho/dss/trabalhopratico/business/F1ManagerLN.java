@@ -46,6 +46,17 @@ public class F1ManagerLN {
         this.campeonatos.addCarroC2(marca,modelo,cilindrada,potenciaMC);
     }
 
+    public void addCarroSC(String marca,String modelo,int cilindrada,int potenciaMC) {
+        this.campeonatos.addCarroSC(marca,modelo,cilindrada,potenciaMC);
+    }
+
+    public void addCarroGT(String marca,String modelo,int cilindrada,int potenciaMC,double taxa_degradacao) {
+        this.campeonatos.addCarroGT(marca,modelo,cilindrada,potenciaMC,taxa_degradacao);
+    }
+    public void addCarroGTHbr(String marca,String modelo,int cilindrada,int potenciaMC,double taxa_degradacao,int potenciaME) {
+        this.campeonatos.addCarroGTHbr(marca,modelo,cilindrada,potenciaMC);
+    }
+
     public Collection<Circuito> getCircuitos() {
         return this.campeonatos.getCircuitos();
     }
