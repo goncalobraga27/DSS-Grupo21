@@ -201,8 +201,8 @@ public class Main {
                         System.out.println("4-> Stock Cars");
                         System.out.println("0-> Terminar Operação");
                         opt = is.nextInt();
-                        if (opt==2||opt==3) {
-                            int cilindrada = 0;
+                        int cilindrada = 0;
+                        if (opt==2 || opt==3) {
                                 while (!f1m.validacilindrada(opt,cilindrada)) {
                                     System.out.println("Insira a cilindrada do carro:");
                                     cilindrada = is.nextInt();
@@ -210,6 +210,11 @@ public class Main {
                         }
                         System.out.println("Insira a potência do motor de combustão do carro:");
                         int potenciaMC = is.nextInt();
+                        double taxa=0;
+                        if (opt == 3) {
+                            System.out.println("Insira a taxa de degradação do carro:");
+                            taxa = is.nextDouble();
+                        }
                         if (opt ==1 || opt==2 || opt==3) {
 
                             int opt1= -1;
@@ -222,17 +227,31 @@ public class Main {
                                     System.out.println("2-> Híbrido");
                                     opt1 = is.nextInt();
                                 }
-                                if (opt1==2){
+                                if (opt1==2) {
                                     System.out.println("Insira a potência do motor elétrico do carro:");
                                     int potenciaME = is.nextInt();
 
+                                    if (opt == 3) {
+                                        f1m.addCarroGTHbr(marca,modelo,cilindrada,potenciaMC,taxa,potenciaME);
+                                    }
+                                    else if (opt==1) {
+                                        f1m.addCarroC1Hbr(marca,modelo,potenciaMC,potenciaME);
+                                    }
+                                    else
+                                        f1m.addCarroC2Hbr(marca,modelo,cilindrada,potenciaMC,potenciaME);
                                 }
-                                if (opt==3) {
-                                    System.out.println("Insira a taxa de degradação do carro:");
-                                    double taxa = is.nextDouble();
+                                else {
+                                    if (opt == 3) {
+                                        f1m.addCarroGT(marca,modelo,cilindrada,potenciaMC,taxa);
+                                    }
+                                    else if (opt==1) {
+                                        f1m.addCarroC1(marca,modelo,potenciaMC);
+                                    }
+                                    else
+                                        f1m.addCarroC2(marca,modelo,cilindrada,potenciaMC);
+
                                 }
                             }
-
                         }
 
 
