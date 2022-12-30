@@ -1,6 +1,8 @@
 package uminho.dss.trabalhopratico.data;
 
 import uminho.dss.trabalhopratico.business.Campeonato;
+import uminho.dss.trabalhopratico.business.Circuito;
+import uminho.dss.trabalhopratico.data.CircuitoDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,10 +19,12 @@ public class CampeonatoDAO implements Map<String, Campeonato> {
     private CampeonatoDAO() {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement()) {
-            String sql = "CREATE TABLE IF NOT EXISTS campeonatos(" +
-                    "Id varchar(10) NOT NULL PRIMARY KEY,"+
-                    "NomeCampeonato varchar(10) NOT NULL)";
-            ((Statement)stm).executeUpdate(sql);
+           String sql = "CREATE TABLE IF NOT EXISTS campeonatos(" +
+                    "NomeCamp varchar(10) NOT NULL,"+
+                    "NomeCirc varchar(10) NOT NULL," +
+                    "PRIMARY KEY (NomeCamp,NomeCirc),"+
+                    "foreign key(NomeCir) references circuito(nomeCircuito))";
+            stm.executeUpdate(sql);
         } catch (SQLException e) {
             // Erro a criar tabela...
             e.printStackTrace();
@@ -46,12 +50,12 @@ public class CampeonatoDAO implements Map<String, Campeonato> {
         Campeonato c = null;
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT * FROM campeonatos WHERE Id='"+key+"'")) {
+             ResultSet rs = stm.executeQuery("SELECT * FROM campeonatos WHERE NomeCamp='"+key+"'")) {
             if (rs.next()) {  // A chave existe na tabela
-                // Reconstruir a colecção dos carros
-                //Collection<String> alunos = getCarros(key.toString(), stm);
+                ResultSet r = stm.executeQuery("SELECT * FROM circuitos WHERE NomeCamp='"+key+"'");
+                while (r.next()) {
 
-
+                }
             }
         } catch (SQLException e) {
             // Database error!
@@ -105,7 +109,7 @@ public class CampeonatoDAO implements Map<String, Campeonato> {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs =
-                     stm.executeQuery("SELECT Id FROM campeonatos WHERE Id='"+key.toString()+"'")) {
+                     stm.executeQuery("SELECT NomeCamp FROM campeonatos WHERE NomeCamp='"+key.toString()+"'")) {
             r = rs.next();
         } catch (SQLException e) {
             // Database error!
@@ -127,7 +131,7 @@ public class CampeonatoDAO implements Map<String, Campeonato> {
     @Override
     public boolean containsValue(Object value) {
         Campeonato c = (Campeonato) value;
-        return this.containsKey(c.getId());
+        return this.containsKey(c.getName());
     }
 
     @Override
@@ -137,9 +141,10 @@ public class CampeonatoDAO implements Map<String, Campeonato> {
             try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
                  Statement stm = conn.createStatement()) {
                 // Actualizar a turma
-                stm.executeUpdate(
-                        "INSERT INTO campeonatos VALUES ('" + c.getId() + "', '" + c.getName() +"', '"+c.getLc()+ "') "
-                ); // FALTA ACRESCENTAR CORRIDAS Á TABELA QUE ESTÃO COMO VARIAVEL DE INSTÂNCIA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                for (Circuito circuito : c.getLc().values() ){
+                    stm.executeUpdate(
+                            "INSERT INTO campeonatos VALUES ('" + key + "', '" +circuito.getNome_circuito()+"')");
+                }
             } catch (SQLException e) {
                 // Database error!
                 e.printStackTrace();
@@ -155,7 +160,7 @@ public class CampeonatoDAO implements Map<String, Campeonato> {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();) {
             // apagar os campeonatos
-            stm.executeUpdate("DELETE FROM campeonatos WHERE Id='"+key+"'");
+            stm.executeUpdate("DELETE FROM campeonatos WHERE NomeCamp='"+key+"'");
         } catch (Exception e) {
             // Database error!
             e.printStackTrace();
@@ -167,7 +172,7 @@ public class CampeonatoDAO implements Map<String, Campeonato> {
     @Override
     public void putAll(Map<? extends String, ? extends Campeonato> campeonatos) {
         for(Campeonato c : campeonatos.values()) {
-            this.put(c.getId(), c);
+            this.put(c.getName(), c);
         }
     }
 
@@ -196,11 +201,11 @@ public class CampeonatoDAO implements Map<String, Campeonato> {
         Collection<Campeonato> res = new HashSet<>();
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT Id FROM campeonatos")) { // ResultSet com os ids de todas as turmas
+             ResultSet rs = stm.executeQuery("SELECT NomeCamp FROM campeonatos")) { // ResultSet com os ids de todas as turmas
             while (rs.next()) {
-                String idC = rs.getString("Id"); // Obtemos um id do carro do ResultSet
-                Campeonato c = this.get(idC);                    // Utilizamos o get para construir os carros uma a uma
-                res.add(c);                                 // Adiciona o carro ao resultado.
+                String idC = rs.getString(1);
+                Campeonato c = this.get(idC);
+                res.add(c);
             }
         } catch (Exception e) {
             // Database error!

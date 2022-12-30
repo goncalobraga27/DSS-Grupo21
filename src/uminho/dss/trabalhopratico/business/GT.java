@@ -4,13 +4,13 @@ public class GT extends Carro {
 
     private double taxa_degradacao;
 
-    public GT(String marca, String modelo, String cilindrada, String potencia, String fiabilidade) {
-        super(marca, modelo, cilindrada, potencia, fiabilidade);
+    public GT(String marca, String modelo, int cilindrada, int potencia) {
+        super(marca, modelo, cilindrada, potencia, 1);
         this.taxa_degradacao = 0.;
     }
 
-    public GT(String marca, String modelo, String cilindrada, String potencia, String fiabilidade, double taxa_degradacao) {
-        super(marca, modelo, cilindrada, potencia, fiabilidade);
+    public GT(String marca, String modelo, int cilindrada, int potencia, double taxa_degradacao) {
+        super(marca, modelo, cilindrada, potencia, 1);
         this.taxa_degradacao = taxa_degradacao;
     }
 

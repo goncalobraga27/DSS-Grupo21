@@ -25,7 +25,7 @@ public class CarroDAO implements Map<String, Carro> {
                     "Modelo varchar(45) DEFAULT NULL," +
                     "Cilindrada INT NOT NULL,"+
                     "Potencia INT NOT NULL,"+
-                    "Fiabilidade INT NOT NULL,"+
+                    "Fiabilidade DOUBLE NOT NULL,"+
                     "TaxaDegradacao DOUBLE DEFAULT NULL,"+
                     "MotorEletrico INT DEFAULT NULL)";
             stm.executeUpdate(sql);

@@ -101,4 +101,17 @@ public class Circuito {
     public Circuito clone() {
         return new Circuito(this);
     }
+
+    @Override
+    public String toString() {
+        return "Circuito{" +
+                "nome_circuito='" + nome_circuito + '\'' +
+                ", distancia=" + distancia +
+                ", n_curvas=" + n_curvas +
+                ", n_chicanes=" + n_chicanes +
+                ", n_retas=" + n_retas +
+                ", n_voltas=" + n_voltas +
+                ", seccoes=" + seccoes +
+                '}';
+    }
 }

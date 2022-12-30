@@ -4,19 +4,19 @@ public abstract class Carro {
     private String Id;
     private String marca;
     private String modelo;
-    private String cilindrada;
-    private String potencia;
-    private String fiabilidade;
+    private int cilindrada;
+    private int potencia;
+    private double fiabilidade;
 
     public Carro() {
         this.marca = "";
         this.modelo= "";
-        this.cilindrada="";
-        this.potencia="";
-        this.fiabilidade="";
+        this.cilindrada=0;
+        this.potencia=0;
+        this.fiabilidade=0;
     }
 
-    public Carro(String marca, String modelo, String cilindrada, String potencia, String fiabilidade) {
+    public Carro(String marca, String modelo, int cilindrada, int potencia, double fiabilidade) {
         this.marca = marca;
         this.modelo = modelo;
         this.cilindrada = cilindrada;
@@ -40,15 +40,15 @@ public abstract class Carro {
         return modelo;
     }
 
-    public String getCilindrada() {
+    public int getCilindrada() {
         return cilindrada;
     }
 
-    public String getPotencia() {
+    public int getPotencia() {
         return potencia;
     }
 
-    public String getFiabilidade() {
+    public double getFiabilidade() {
         return fiabilidade;
     }
 
@@ -60,15 +60,15 @@ public abstract class Carro {
         this.modelo = modelo;
     }
 
-    public void setCilindrada(String cilindrada) {
+    public void setCilindrada(int cilindrada) {
         this.cilindrada = cilindrada;
     }
 
-    public void setPotencia(String potencia) {
+    public void setPotencia(int potencia) {
         this.potencia = potencia;
     }
 
-    public void setFiabilidade(String fiabilidade) {
+    public void setFiabilidade(double fiabilidade) {
         this.fiabilidade = fiabilidade;
     }
 

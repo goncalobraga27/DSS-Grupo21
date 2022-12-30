@@ -49,4 +49,13 @@ public class SeccaoCircuito {
     public SeccaoCircuito clone(){
         return new SeccaoCircuito(this);
     }
+
+    @Override
+    public String toString() {
+        return "SeccaoCircuito {" +
+                "tipoSeccao=" + tipoSeccao +
+                ", ordem=" + ordem +
+                ", GDU=" + GDU +
+                '}';
+    }
 }

@@ -6,16 +6,15 @@ import uminho.dss.trabalhopratico.business.F1ManagerLN;
 import uminho.dss.trabalhopratico.business.SeccaoCircuito;
 import uminho.dss.trabalhopratico.ui.Menu;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) throws Exception {
         F1ManagerLN f1m = new F1ManagerLN();
         boolean logged= false;
         Scanner scann = new Scanner(System.in);
         Scanner is = new Scanner(System.in);
-        Scanner insertDouble = new Scanner(System.in);
         Menu menu = new Menu(new String[]{
                 "Registar-se",
                 "Autenticar-se",
@@ -91,7 +90,7 @@ public class Main {
                 System.out.println("Insira a nome do circuito:");
                 String nome = scann.nextLine();
                 System.out.println("Insira a distância do circuito:");
-                double distancia= insertDouble.nextDouble();
+                double distancia= is.nextDouble();
                 int num_curvas=0;
                 int num_chicanes=0;
                 int opt=-1;
@@ -99,20 +98,22 @@ public class Main {
                 for (int i = 0; opt !=0; i++) {
                     if (i > 0 && (opt < 0 || opt > 2))
                         System.out.println("A opção escolhida não se encontra nas opções disponíveis!\n");
-                    System.out.println("Selecione o tipo de manobra a adicionar ao circuito:");
-                    System.out.println("1-> Curva");
-                    System.out.println("2-> Chicane");
-                    System.out.println("0-> Terminar Operação");
-                    opt = is.nextInt();
-                    if (opt!=0) {
-                        System.out.println("Insira o grau de dificuldade de ultrapassagem (Valor entre 0 e 1):");
-                        double gdu = is.nextDouble();
-                        SeccaoCircuito s = new SeccaoCircuito(opt,num_curvas+num_chicanes,gdu);
-                        if (opt==1)
-                            num_curvas++;
-                        else
-                            num_chicanes++;
-                        seccoes.add(s);
+                    else {
+                        System.out.println("Selecione o tipo de manobra a adicionar ao circuito:");
+                        System.out.println("1-> Curva");
+                        System.out.println("2-> Chicane");
+                        System.out.println("0-> Terminar Operação");
+                        opt = is.nextInt();
+                        if (opt != 0) {
+                            System.out.println("Insira o grau de dificuldade de ultrapassagem (Valor entre 0 e 1):");
+                            double gdu = is.nextDouble();
+                            SeccaoCircuito s = new SeccaoCircuito(opt, num_curvas + num_chicanes, gdu);
+                            if (opt == 1)
+                                num_curvas++;
+                            else
+                                num_chicanes++;
+                            seccoes.add(s);
+                        }
                     }
                 }
                 System.out.println("Insira o número de voltas do circuito:");
@@ -148,35 +149,102 @@ public class Main {
                 System.out.println("Dados inválidos");
             }
         });
-/*
+
         menu.setHandler(5,()->{
             try {
-                System.out.println("Insira a posiçao de x");
-                int posx = scann.nextInt();
-                System.out.println("Insira a posição de y");
-                int posy = scann.nextInt();
-                System.out.println("Defina a distância máxima a que pretende encontrar as trotinetes!");
-                int dist = scann.nextInt();
+                System.out.println("Insira o nome do Piloto a registar");
+                String nome = scann.nextLine();
+                int opt=-1;
+                ArrayList<String> circuitos = new ArrayList<>();
+                for (int i = 0; opt !=0; i++) {
+                    if (i > 0 && (opt < 0 || opt > 2))
+                        System.out.println("A opção escolhida não se encontra nas opções disponíveis!\n");
+                    System.out.println("1-> Adicionar um novo Circuito ao Campeonato");
+                    System.out.println("0-> Terminar Operação");
+                    opt = is.nextInt();
+                    if (opt==1) {
+                        Collection<Circuito> circ= f1m.getCircuitos();
+                        for (Circuito m : circ) {
+                            System.out.println(circ.toString());
+                        }
+                        System.out.println("Insira o nome do Circuito a Adicionar:");
+                        String nomeCirc = scann.nextLine();
+                        if (circ.stream().map(Circuito::getNome_circuito).toList().contains(nomeCirc))
+                            circuitos.add(nomeCirc);
+                        else {
+                            System.out.println("O circuito não é válido");
+                        }
+                    }
+                }
+                f1m.addCampeonato(nome,circuitos);
             }
             catch (Exception e) {
-                System.out.println("Dados inválidos");
+                System.out.println(e);
             }
         });
 
         menu.setHandler(6,()->{
             try {
-                System.out.println("Insira a posiçao de x");
-                int posx = scann.nextInt();
-                System.out.println("Insira a posição de y");
-                int posy = scann.nextInt();
-                System.out.println("Defina a distância máxima a que pretende encontrar as trotinetes!");
-                int dist = scann.nextInt();
+                System.out.println("Insira a marca do carro a registar");
+                String marca = scann.nextLine();
+                System.out.println("Insira o modelo do Carro a registar");
+                String modelo = scann.nextLine();
+                int opt=-1;
+                for (int i = 0; opt<0 || opt>4; i++) {
+                    if (i > 0)
+                        System.out.println("A opção escolhida não se encontra nas opções disponíveis!\n");
+                    else {
+                        System.out.println("Selecione a categoria do carro a adicionar:");
+                        System.out.println("1-> Classe 1");
+                        System.out.println("2-> Classe 2");
+                        System.out.println("3-> Classe Grand Turismo");
+                        System.out.println("4-> Stock Cars");
+                        System.out.println("0-> Terminar Operação");
+                        opt = is.nextInt();
+                        if (opt==2||opt==3) {
+                            int cilindrada = 0;
+                                while (!f1m.validacilindrada(opt,cilindrada)) {
+                                    System.out.println("Insira a cilindrada do carro:");
+                                    cilindrada = is.nextInt();
+                                }
+                        }
+                        System.out.println("Insira a potência do motor de combustão do carro:");
+                        int potenciaMC = is.nextInt();
+                        if (opt ==1 || opt==2 || opt==3) {
+
+                            int opt1= -1;
+                            for (int j = 0; opt1<1 || opt1>2; j++) {
+                                if (j > 0)
+                                    System.out.println("A opção escolhida não se encontra nas opções disponíveis!\n");
+                                else {
+                                    System.out.println("Selecione o tipo de veículo a adicionar:");
+                                    System.out.println("1-> Combustão");
+                                    System.out.println("2-> Híbrido");
+                                    opt1 = is.nextInt();
+                                }
+                                if (opt1==2){
+                                    System.out.println("Insira a potência do motor elétrico do carro:");
+                                    int potenciaME = is.nextInt();
+
+                                }
+                                if (opt==3) {
+                                    System.out.println("Insira a taxa de degradação do carro:");
+                                    double taxa = is.nextDouble();
+                                }
+                            }
+
+                        }
+
+
+
+                    }
+                }
             }
             catch (Exception e) {
                 System.out.println("Dados inválidos");
             }
         });
-
+/*
         menu.setHandler(7,()->{
             try {
                 System.out.println("Insira a posiçao de x");
