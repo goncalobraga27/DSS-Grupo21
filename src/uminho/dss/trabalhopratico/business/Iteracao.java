@@ -6,8 +6,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public class Iteracao implements Comparable<Iteracao>, Comparator<Iteracao> {
-    private TreeSet<Registo> resultados;
+public class Iteracao implements Comparable<Iteracao> {
+    private final TreeSet<Registo> resultados;
     private final String nomeCorrida;
     private final int nIteracao;
 
@@ -39,10 +39,5 @@ public class Iteracao implements Comparable<Iteracao>, Comparator<Iteracao> {
     @Override
     public int compareTo(Iteracao i) {
         return Integer.compare(this.nIteracao, i.getnIteracao());
-    }
-
-    @Override
-    public int compare(Iteracao o1, Iteracao o2) {
-        return Integer.compare(o1.getnIteracao(), o2.getnIteracao());
     }
 }

@@ -12,6 +12,7 @@ public class Registo implements Comparable<Registo> {
     private final Piloto piloto;
     private final Jogador jogador;
     private LocalDateTime dataRegisto;
+    private double probUltrapassar;
 
     public Registo(int idRegisto, Carro c, Piloto p, Jogador j) {
         this.idRegisto = idRegisto;
@@ -20,6 +21,7 @@ public class Registo implements Comparable<Registo> {
         this.piloto = p;
         this.jogador = j;
         this.dataRegisto = LocalDateTime.now();
+        this.probUltrapassar = 1.;
     }
 
     public Registo(Registo that) {
@@ -29,10 +31,19 @@ public class Registo implements Comparable<Registo> {
         this.piloto = that.piloto.clone();
         this.jogador = that.jogador.clone();
         this.dataRegisto = LocalDateTime.from(this.dataRegisto);
+        this.probUltrapassar = 1.;
     }
 
     public int compareTo(Registo r) {
         return dataRegisto.compareTo(r.getDataRegisto());
+    }
+
+    public double getProbUltrapassar() {
+        return probUltrapassar;
+    }
+
+    public void setProbUltrapassar(double probUltrapassar) {
+        this.probUltrapassar = probUltrapassar;
     }
 
     public void setnAfinacoes(int nAfinacoes) {

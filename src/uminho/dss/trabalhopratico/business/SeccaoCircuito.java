@@ -1,14 +1,12 @@
 package uminho.dss.trabalhopratico.business;
 
-
-public class SeccaoCircuito {
+public class SeccaoCircuito implements Comparable<SeccaoCircuito> {
     public static final int RETA=0;
-    private static final int CURVA=1;
-    private static final int CHICANE=2;
-
-    private int tipoSeccao;
-    private int ordem;
-    private double GDU;
+    public static final int CURVA=1;
+    public static final int CHICANE=2;
+    private final int tipoSeccao;
+    private final int ordem;
+    private final double GDU;
 
     public SeccaoCircuito(int tipoSeccao, int ordem, double GDU) {
         this.tipoSeccao = tipoSeccao;
@@ -25,24 +23,12 @@ public class SeccaoCircuito {
         return tipoSeccao;
     }
 
-    public void setTipoSeccao(int tipoSeccao) {
-        this.tipoSeccao = tipoSeccao;
-    }
-
     public int getOrdem() {
         return ordem;
     }
 
-    public void setOrdem(int ordem) {
-        this.ordem = ordem;
-    }
-
     public double getGDU() {
         return GDU;
-    }
-
-    public void setGDU(double GDU) {
-        this.GDU = GDU;
     }
 
     @Override
@@ -57,5 +43,10 @@ public class SeccaoCircuito {
                 ", ordem=" + ordem +
                 ", GDU=" + GDU +
                 '}';
+    }
+
+    @Override
+    public int compareTo(SeccaoCircuito sc) {
+        return Integer.compare(this.ordem, sc.ordem);
     }
 }

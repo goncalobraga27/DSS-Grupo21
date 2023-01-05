@@ -1,6 +1,8 @@
 package uminho.dss.trabalhopratico.business;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 
 public class Circuito {
     private String nome_circuito;
@@ -9,8 +11,7 @@ public class Circuito {
     private int n_chicanes;
     private int n_retas;
     private int n_voltas;
-
-    private ArrayList<SeccaoCircuito> seccoes;
+    private Deque<SeccaoCircuito> seccoes;
 
     public Circuito(Circuito that) {
         this.nome_circuito = that.nome_circuito;
@@ -19,7 +20,7 @@ public class Circuito {
         this.n_chicanes = that.n_chicanes;
         this.n_retas = that.n_retas;
         this.n_voltas =that.n_voltas;
-        this.seccoes=new ArrayList<>();
+        this.seccoes = new ArrayDeque<>();
         for (SeccaoCircuito m :  that.seccoes ){
             this.seccoes.add (m.clone());
         }
@@ -36,7 +37,7 @@ public class Circuito {
         this.n_curvas = n_curvas;
         this.n_voltas = n_voltas;
         this.distancia = distancia;
-        this.seccoes=new ArrayList<>();
+        this.seccoes = new ArrayDeque<>();
         for (SeccaoCircuito m :  s ){
             this.seccoes.add (m.clone());
         }
@@ -48,7 +49,7 @@ public class Circuito {
         this.n_curvas = 0;
         this.n_voltas = 0;
         this.distancia =0;
-        this.seccoes=new ArrayList<>();
+        this.seccoes = new ArrayDeque<>();
     }
 
 
@@ -100,12 +101,8 @@ public class Circuito {
         this.n_voltas = n_voltas;
     }
 
-    public ArrayList<SeccaoCircuito> getSeccoes() {
+    public Deque<SeccaoCircuito> getSeccoes() {
         return seccoes;
-    }
-
-    public void setSeccoes(ArrayList<SeccaoCircuito> seccoes) {
-        this.seccoes = seccoes;
     }
 
     public Circuito clone() {

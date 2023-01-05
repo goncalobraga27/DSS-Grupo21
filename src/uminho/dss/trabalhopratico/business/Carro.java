@@ -33,7 +33,6 @@ public abstract class Carro {
         return marca;
     }
 
-
     public int getCilindrada() {
         return cilindrada;
     }
@@ -49,7 +48,6 @@ public abstract class Carro {
     public void setMarca(String marca) {
         this.marca = marca;
     }
-
 
     public void setCilindrada(int cilindrada) {
         this.cilindrada = cilindrada;
