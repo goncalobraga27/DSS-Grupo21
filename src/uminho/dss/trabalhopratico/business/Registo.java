@@ -85,4 +85,9 @@ public class Registo implements Comparable<Registo> {
     public Registo clone() {
         return new Registo(this);
     }
+
+    @Override
+    public String toString() {
+        return jogador.getNomeUtilizador() + " | " + piloto.getNomePiloto() + " | " + carro.getMarca();
+    }
 }

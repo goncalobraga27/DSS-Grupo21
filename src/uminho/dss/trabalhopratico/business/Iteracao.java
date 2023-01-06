@@ -40,4 +40,13 @@ public class Iteracao implements Comparable<Iteracao> {
     public int compareTo(Iteracao i) {
         return Integer.compare(this.nIteracao, i.getnIteracao());
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for(Registo r : resultados) {
+            builder.append(r.toString()).append("\n");
+        }
+        return builder.toString();
+    }
 }
