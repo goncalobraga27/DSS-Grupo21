@@ -62,8 +62,10 @@ public class Simulacao {
         SeccaoCircuito seccao = Objects.requireNonNull(seccoesCircuito.poll());
         for(Registo r : prev.getResultados()) {
             double probabilidadeUltrapassar = probabilidadeUltrapassar(r);
-            r.setProbUltrapassar((probabilidadeUltrapassar * .3) * (seccao.getGDU() * .7));
-            novosResultados.add(r);
+            if(Double.compare(0., probabilidadeUltrapassar) != 0.) {
+                r.setProbUltrapassar((probabilidadeUltrapassar * .3) * (seccao.getGDU() * .7));
+                novosResultados.add(r);
+            }
         }
         cur.setResultados(novosResultados);
         return cur;
