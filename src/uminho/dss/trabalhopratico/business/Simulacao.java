@@ -21,14 +21,14 @@ public class Simulacao {
         this.iteracoes = new TreeSet<>();
         this.nomeCircuito = c.getNome_circuito();
         this.seccoesCircuito = c.getSeccoes();
-        this.condicaoMeteorologica = (ThreadLocalRandom.current().nextInt(0, 99) % 2) - 1;
+        this.condicaoMeteorologica = (ThreadLocalRandom.current().nextInt(SECO, CHUVA * 99) % 2) - 1;
     }
 
     private boolean avariou(Carro c) {
         return (ThreadLocalRandom.current().nextDouble(0, 9999) % 10000) < c.getFiabilidade();
     }
 
-    private double probabilidadeUltrapassar(double cilindrada, double potencia, double biasPiloto, double periciaPiloto) {
+    private double determinaUltrapassagem(double cilindrada, double potencia, double biasPiloto, double periciaPiloto) {
         cilindrada += ThreadLocalRandom.current().nextDouble(-.99, .99);
         potencia += ThreadLocalRandom.current().nextDouble(-.99, .99);
         periciaPiloto = condicaoMeteorologica == CHUVA
@@ -37,7 +37,7 @@ public class Simulacao {
         return (cilindrada * .2) + (potencia * .3) + (biasPiloto * .2) + (periciaPiloto * .3);
     }
 
-    private double ultrapassou(Registo r) {
+    private double probabilidadeUltrapassar(Registo r) {
         Carro c = r.getCarro();
         if(avariou(c)) {
             return 0.;
@@ -47,7 +47,7 @@ public class Simulacao {
         Piloto p = r.getPiloto();
         double biasPiloto = p.getSegurancaAgressividade();
         double periciaPiloto = p.getChuvaTempoSeco();
-        return probabilidadeUltrapassar(cilindrada, potencia, biasPiloto, periciaPiloto);
+        return determinaUltrapassagem(cilindrada, potencia, biasPiloto, periciaPiloto);
     }
 
     public Iteracao simula() {
@@ -58,13 +58,12 @@ public class Simulacao {
         Iteracao prev = this.iteracoes.last();
         Iteracao cur = new Iteracao(this.nomeCircuito, prev.getnIteracao() + 1);
 
-        TreeSet<Registo> novosResultados = new TreeSet<>(
-            Comparator.comparingDouble(Registo::getProbUltrapassar)
-        );
+        TreeSet<Registo> novosResultados = new TreeSet<>(Comparator.comparingDouble(Registo::getProbUltrapassar));
         SeccaoCircuito seccao = Objects.requireNonNull(seccoesCircuito.poll());
         for(Registo r : prev.getResultados()) {
-            double probabilidadeUltrapassar = ultrapassou(r);
-            r.setProbUltrapassar(probabilidadeUltrapassar * seccao.getGDU());
+            double probabilidadeUltrapassar = probabilidadeUltrapassar(r);
+            r.setProbUltrapassar((probabilidadeUltrapassar * .3) * (seccao.getGDU() * .7));
+            novosResultados.add(r);
         }
         cur.setResultados(novosResultados);
         return cur;

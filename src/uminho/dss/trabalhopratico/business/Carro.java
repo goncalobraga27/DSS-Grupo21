@@ -23,6 +23,7 @@ public abstract class Carro {
 
 
     public Carro(Carro other) {
+        this.Id = other.Id;
         this.marca = other.marca;
         this.cilindrada = other.cilindrada;
         this.potencia = other.potencia;
