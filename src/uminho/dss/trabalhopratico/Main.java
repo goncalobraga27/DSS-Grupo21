@@ -249,20 +249,21 @@ public class Main {
                                         f1m.addCarroC2Hbr(marca,modelo,cilindrada,potenciaMC,potenciaME);
                                 }
                                 else {
+
                                     if (opt == 3) {
                                         f1m.addCarroGT(marca,modelo,cilindrada,potenciaMC,taxa);
                                     }
                                     else if (opt==1) {
                                         f1m.addCarroC1(marca,modelo,potenciaMC);
                                     }
-                                    else if (opt==2)
-                                        f1m.addCarroC2(marca,modelo,cilindrada,potenciaMC);
-                                    else {
-                                        f1m.addCarroSC(marca,modelo,cilindrada,potenciaMC,fiabilidade);
+                                    else if (opt==2) {
+                                        f1m.addCarroC2(marca, modelo, cilindrada, potenciaMC);
                                     }
-
                                 }
                             }
+                        }
+                        else if (opt==4){
+                            f1m.addCarroSC(marca,modelo,cilindrada,potenciaMC,fiabilidade);
                         }
 
 

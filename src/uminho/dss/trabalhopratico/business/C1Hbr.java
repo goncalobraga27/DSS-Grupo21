@@ -24,4 +24,12 @@ public class C1Hbr extends C1 {
     public C1Hbr clone() {
         return new C1Hbr(this);
     }
+
+
+    @Override
+    public String toString() {
+        return "C1Hbr{" +super.toString()+
+                "motor_eletrico=" + motor_eletrico +
+                '}';
+    }
 }

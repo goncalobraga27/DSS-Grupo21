@@ -45,34 +45,41 @@ public class GestCampeonatos implements IGestCampeonatos {
     public void addCarroC1Hbr(String marca,String modelo,int potenciaMC,int PotenciaME) {
         C1Hbr c1= new C1Hbr(marca,modelo,potenciaMC,PotenciaME);
         this.carros.put(c1.getMarca(),c1);
+        System.out.println(this.carros.get(c1.getMarca()));
     }
     public void addCarroC1(String marca,String modelo, int potenciaMC) {
         C1 c1= new C1(marca,modelo,potenciaMC);
         this.carros.put(c1.getMarca(),c1);
+        System.out.println(this.carros.get(c1.getMarca()));
     }
 
     public void addCarroC2Hbr(String marca,String modelo,int cilindrada,int potenciaMC,int PotenciaME) {
         C2Hbr c2 = new C2Hbr(marca,modelo,cilindrada,potenciaMC,PotenciaME);
         this.carros.put(c2.getMarca(),c2);
+        System.out.println(this.carros.get(c2.getMarca()));
     }
 
     public void addCarroC2(String marca,String modelo,int cilindrada,int potenciaMC) {
         C2 c2 = new C2(marca,modelo,cilindrada,potenciaMC);
         this.carros.put(c2.getMarca(),c2);
+        System.out.println(this.carros.get(c2.getMarca()));
     }
 
     public void addCarroSC(String marca,String modelo,int cilindrada,int potenciaMC,double fiabilidade) {
         SC c2 = new SC(marca,modelo,cilindrada,potenciaMC,fiabilidade);
         this.carros.put(c2.getMarca(),c2);
+        System.out.println(this.carros.get(c2.getMarca()));
     }
 
     public void addCarroGT(String marca,String modelo,int cilindrada,int potenciaMC,double taxa_degradacao) {
         GT gt = new GT(marca,modelo,cilindrada,potenciaMC,taxa_degradacao);
         this.carros.put(gt.getMarca(),gt);
+        System.out.println(this.carros.get(gt.getMarca()));
     }
     public void addCarroGTHbr(String marca,String modelo,int cilindrada,int potenciaMC,double taxa_degradacao, int potenciaME) {
         GTHibr gthbr = new GTHibr(marca,modelo,cilindrada,potenciaMC,taxa_degradacao,potenciaME);
         this.carros.put(gthbr.getMarca(),gthbr);
+        System.out.println(this.carros.get(gthbr.getMarca()));
     }
 
 

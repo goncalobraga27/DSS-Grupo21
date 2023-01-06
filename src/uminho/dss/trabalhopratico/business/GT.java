@@ -30,4 +30,11 @@ public class GT extends Carro {
     public GT clone() {
         return new GT(this);
     }
+
+    @Override
+    public String toString() {
+        return "GT{" +super.toString()+
+                "taxa_degradacao=" + taxa_degradacao +
+                '}';
+    }
 }

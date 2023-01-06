@@ -24,4 +24,11 @@ public class GTHibr extends GT {
     public GTHibr clone() {
         return new GTHibr(this);
     }
+
+    @Override
+    public String toString() {
+        return "GTHibr{" +super.toString()+
+                "motor_eletrico=" + motor_eletrico +
+                '}';
+    }
 }

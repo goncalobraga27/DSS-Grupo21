@@ -58,10 +58,30 @@ public class CarroDAO implements Map<String, Carro> {
         Carro t = null;
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT * FROM carros WHERE Id='"+key+"'")) {
-            if (rs.next()) {  // A chave existe na tabela
-                // Reconstruir a colecção dos carros
-                //Collection<String> alunos = getCarros(key.toString(), stm);
+             ResultSet rs = stm.executeQuery("SELECT * FROM carros WHERE MarcaModelo='"+key+"'")) {
+            if (rs.next()) {
+                if(rs.getString(1).equals(("SC"))){
+                    t=new SC(rs.getString(2),"",rs.getInt(3),rs.getInt(4),rs.getDouble(5));
+                }
+                else if (rs.getString(1).equals("C1")){
+                    t=new C1(rs.getString(2),"",rs.getInt(4));
+                }
+                else if (rs.getString(1).equals("C2")){
+                    t=new C2(rs.getString(2),"",rs.getInt(3),rs.getInt(4));
+                }
+                else if (rs.getString(1).equals("GT")){
+                    t=new GT(rs.getString(2),"",rs.getInt(3),rs.getInt(4),rs.getDouble(6));
+                }
+                else if (rs.getString(1).equals("C1Hbr")){
+                    t=new C1Hbr(rs.getString(2),"",rs.getInt(4),rs.getInt(7));
+                }
+                else if (rs.getString(1).equals("C2Hbr")){
+                    t=new C2Hbr(rs.getString(2),"",rs.getInt(3),rs.getInt(4),rs.getInt(7));
+                }
+                else {
+                    t=new GTHibr(rs.getString(2),"",rs.getInt(3),rs.getInt(4),rs.getInt(6),rs.getInt(7));
+                }
+
 
 
             }
@@ -148,7 +168,24 @@ public class CarroDAO implements Map<String, Carro> {
         if (!this.containsKey(key)) {
             try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
                  Statement stm = conn.createStatement()) {
-                // Actualizar a turma
+                if (c.getClass()==C1.class){
+                    C1 c1=(C1) c;
+                    stm.executeUpdate(
+                            "INSERT INTO carros(Categoria,MarcaModelo,Cilindrada,Potencia,Fiabilidade) VALUES ('" +"C1"+  "', '" + c1.getMarca() +  "', '" + c1.getCilindrada() + "', '" + c1.getPotencia() + "', '" + c1.getFiabilidade() +  "') "
+                    );
+                }
+                if (c.getClass()==C2.class){
+                    C2 c2=(C2) c;
+                    stm.executeUpdate(
+                            "INSERT INTO carros(Categoria,MarcaModelo,Cilindrada,Potencia,Fiabilidade) VALUES ('" +"C2"+  "', '" + c2.getMarca() +  "', '" + c2.getCilindrada() + "', '" + c2.getPotencia() + "', '" + c2.getFiabilidade() +  "') "
+                    );
+                }
+                if (c.getClass()==GT.class){
+                    GT gt=(GT) c;
+                    stm.executeUpdate(
+                            "INSERT INTO carros(Categoria,MarcaModelo,Cilindrada,Potencia,Fiabilidade,TaxaDegradacao) VALUES ('" +"GT"+  "', '" + gt.getMarca() +  "', '" + gt.getCilindrada() + "', '" + gt.getPotencia() + "', '" + gt.getFiabilidade() +"', '" + gt.gettaxa_degradacao()+ "') "
+                    );
+                }
                 if(c.getClass() == C1Hbr.class) {
                     C1Hbr c1= (C1Hbr) c;
                     stm.executeUpdate(
@@ -170,10 +207,9 @@ public class CarroDAO implements Map<String, Carro> {
                 else if (c.getClass() == SC.class){
                     SC c1= (SC) c;
                     stm.executeUpdate(
-                            "INSERT INTO carros(Categoria,MarcaModelo,Cilindrada,Potencia,Fiabilidade) VALUES ('" +c.getClass().toString()+  "', '" + c.getMarca() +  "', '" + c.getCilindrada() + "', '" + c.getPotencia() + "', '" + c.getFiabilidade() + "') "
-                    ); // FALTA METER A CATEGORIA NA TABELA DOS CARROSDAO
+                            "INSERT INTO carros(Categoria,MarcaModelo,Cilindrada,Potencia,Fiabilidade) VALUES ('" +"SC"+  "', '" + c1.getMarca() +  "', '" + c1.getCilindrada() + "', '" + c1.getPotencia() + "', '" + c1.getFiabilidade() +"') "
+                    );
                 }
-               // else if (c.getClass()==)
 
             } catch (SQLException e) {
                 // Database error!

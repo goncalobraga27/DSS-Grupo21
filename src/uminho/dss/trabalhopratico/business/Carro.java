@@ -70,4 +70,14 @@ public abstract class Carro {
     public void setId(String id) {
         this.Id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Carro{" +
+                "Marca='" + marca + '\'' +
+                ", cilindrada=" + cilindrada +
+                ", potencia=" + potencia +
+                ", fiabilidade=" + fiabilidade +
+                '}';
+    }
 }

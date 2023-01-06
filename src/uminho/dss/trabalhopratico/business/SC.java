@@ -12,4 +12,9 @@ public class SC extends Carro {
     public SC clone() {
         return new SC(this);
     }
+
+    @Override
+    public String toString() {
+        return "SC{"+super.toString()+"}";
+    }
 }

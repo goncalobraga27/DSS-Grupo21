@@ -19,4 +19,9 @@ public class C2 extends Carro {
     public C2 clone () {
         return new C2(this);
     }
+
+    @Override
+    public String toString() {
+        return "C2{"+super.toString()+"}";
+    }
 }
