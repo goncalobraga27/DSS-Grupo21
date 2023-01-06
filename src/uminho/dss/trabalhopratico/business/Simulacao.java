@@ -59,7 +59,7 @@ public class Simulacao {
         Iteracao prev = this.iteracoes.last();
         Iteracao cur = new Iteracao(this.nomeCircuito, prev.getnIteracao() + 1);
 
-        TreeSet<Registo> novosResultados = new TreeSet<>(Comparator.comparingDouble(Registo::getProbUltrapassar));
+        TreeSet<Registo> novosResultados = new TreeSet<>((r1, r2) -> Double.compare(r2.getProbUltrapassar(), r1.getProbUltrapassar()));
         SeccaoCircuito seccao = Objects.requireNonNull(seccoesCircuito.poll());
         for(Registo r : prev.getResultados()) {
             double probabilidadeUltrapassar = probabilidadeUltrapassar(r);

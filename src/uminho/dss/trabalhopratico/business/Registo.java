@@ -82,13 +82,19 @@ public class Registo implements Comparable<Registo> {
         ++this.nAfinacoes;
     }
 
+    @Override
     public Registo clone() {
         return new Registo(this);
     }
 
     @Override
     public String toString() {
-        return jogador.getNomeUtilizador() + " | " + piloto.getNomePiloto() + " | " + carro.getMarca();
-
+        // return jogador.getNomeUtilizador() + " | " + piloto.getNomePiloto() + " | " + carro.getMarca();
+        return String.format(
+            "%" + 32 + "s | %" + 32 + "s | %" + 32 + "s",
+            jogador.getNomeUtilizador(),
+            piloto.getNomePiloto(),
+            carro.getMarca()
+        );
     }
 }

@@ -272,6 +272,22 @@ public class Main {
                 System.out.println("Dados inválidos");
             }
         });
+/*
+        menu.setHandler(7,()->{
+            try {
+                System.out.println("Insira a posiçao de x");
+                int posx = scann.nextInt();
+                System.out.println("Insira a posição de y");
+                int posy = scann.nextInt();
+                System.out.println("Defina a distância máxima a que pretende encontrar as trotinetes!");
+                int dist = scann.nextInt();
+            }
+            catch (Exception e) {
+                System.out.println("Dados inválidos");
+            }
+        });
+
+ */
 
         Registo r1= new Registo(1,f1m.getCarro("Porsche 911 GT3 cup "),f1m.getPiloto("Miguel"),f1m.getJogador("goncalo"));
         Registo r2= new Registo(2,f1m.getCarro("Pagani  Huarya R"),f1m.getPiloto("André"),f1m.getJogador("bot"));

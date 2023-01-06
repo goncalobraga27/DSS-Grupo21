@@ -43,10 +43,11 @@ public class Iteracao implements Comparable<Iteracao> {
 
     @Override
     public String toString() {
-
         StringBuilder builder = new StringBuilder();
+        int i = 0;
         for(Registo r : resultados) {
-            builder.append(r.toString()).append("\n");
+            ++i;
+            builder.append(i).append(r.toString()).append("\n");
         }
         return builder.toString();
     }
