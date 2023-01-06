@@ -54,6 +54,7 @@ public class Simulacao {
         if(this.iteracoes.size() == 0) {
             Iteracao cur = new Iteracao(this.nomeCircuito, 0);
             cur.setResultados(new TreeSet<>(lr));
+            return cur;
         }
         Iteracao prev = this.iteracoes.last();
         Iteracao cur = new Iteracao(this.nomeCircuito, prev.getnIteracao() + 1);

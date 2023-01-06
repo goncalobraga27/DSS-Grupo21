@@ -84,7 +84,7 @@ public class GestCampeonatos implements IGestCampeonatos {
 
 
     public Collection<Circuito> getCircuitos() {
-        return this.circuitos.values();
+        return this.circuitos.values().stream().toList();
     }
 
     public Piloto getPiloto(String nomePiloto){return this.pilotos.get(nomePiloto);}
@@ -99,5 +99,8 @@ public class GestCampeonatos implements IGestCampeonatos {
         return  new Campeonato(nome,lCirc);
     }
 
+    public Carro getCarro(String marcaModelo){
+        return this.carros.get(marcaModelo);
+    }
 
 }

@@ -33,4 +33,8 @@ public class GestUtilizadores {
         Administrador a = new Administrador(username,password);
         return this.administradores.containsValue(a);
     }
+
+    public Jogador getJogador(String username){
+        return this.jogadores.get(username);
+    }
 }

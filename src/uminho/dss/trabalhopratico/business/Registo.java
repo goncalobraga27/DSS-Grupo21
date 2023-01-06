@@ -30,7 +30,7 @@ public class Registo implements Comparable<Registo> {
         this.carro = that.carro.clone();
         this.piloto = that.piloto.clone();
         this.jogador = that.jogador.clone();
-        this.dataRegisto = LocalDateTime.from(this.dataRegisto);
+        this.dataRegisto = LocalDateTime.from(that.dataRegisto);
         this.probUltrapassar = 1.;
     }
 
@@ -89,5 +89,6 @@ public class Registo implements Comparable<Registo> {
     @Override
     public String toString() {
         return jogador.getNomeUtilizador() + " | " + piloto.getNomePiloto() + " | " + carro.getMarca();
+
     }
 }

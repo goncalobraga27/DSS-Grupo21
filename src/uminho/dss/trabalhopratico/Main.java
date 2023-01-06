@@ -1,9 +1,6 @@
 package uminho.dss.trabalhopratico;
 
-import uminho.dss.trabalhopratico.business.Circuito;
-import uminho.dss.trabalhopratico.business.Corrida;
-import uminho.dss.trabalhopratico.business.F1ManagerLN;
-import uminho.dss.trabalhopratico.business.SeccaoCircuito;
+import uminho.dss.trabalhopratico.business.*;
 import uminho.dss.trabalhopratico.ui.Menu;
 
 import java.util.*;
@@ -275,23 +272,19 @@ public class Main {
                 System.out.println("Dados inválidos");
             }
         });
-/*
-        menu.setHandler(7,()->{
-            try {
-                System.out.println("Insira a posiçao de x");
-                int posx = scann.nextInt();
-                System.out.println("Insira a posição de y");
-                int posy = scann.nextInt();
-                System.out.println("Defina a distância máxima a que pretende encontrar as trotinetes!");
-                int dist = scann.nextInt();
-            }
-            catch (Exception e) {
-                System.out.println("Dados inválidos");
-            }
-        });
 
- */
-
+        Registo r1= new Registo(1,f1m.getCarro("Porsche 911 GT3 cup "),f1m.getPiloto("Miguel"),f1m.getJogador("goncalo"));
+        Registo r2= new Registo(2,f1m.getCarro("Pagani  Huarya R"),f1m.getPiloto("André"),f1m.getJogador("bot"));
+        Map<Integer, Registo> regs=new HashMap<>();
+        regs.put(1,r1);
+        regs.put(2,r2);
+        List<Circuito> c = (List<Circuito>) f1m.getCircuitos();
+        Circuito cS= (Circuito) c.get(0);
+        Simulacao s = new Simulacao(regs,cS);
+        Iteracao it=s.simula();
+        System.out.println(it.toString());
+        Iteracao it1=s.simula();
+        System.out.println(it1.toString());
         menu.run();
     }
 }

@@ -81,16 +81,12 @@ public class F1ManagerLN {
         else
             return value>2000 && value<4000;
     }
-
-    private void getPiloto(String nomePiloto){
-        this.campeonatos.getPiloto(nomePiloto);
+    public Piloto getPiloto(String nomePiloto){
+        return this.campeonatos.getPiloto(nomePiloto);
     }
-
-    //private void getCarro(String nomePiloto){
-        //this.campeonatos.getCarro(nomePiloto);
-    //}
-
     public  Campeonato getCampeonato(String nome){
         return this.campeonatos.getCampeonato(nome);
     }
+    public Carro getCarro(String MarcaModelo){return this.campeonatos.getCarro(MarcaModelo);}
+    public Jogador getJogador(String username){return this.gUsers.getJogador(username);}
 }

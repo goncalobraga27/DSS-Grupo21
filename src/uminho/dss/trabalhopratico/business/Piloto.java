@@ -37,4 +37,13 @@ public class Piloto {
     public Piloto clone(){
         return new Piloto(this);
     }
+
+    @Override
+    public String toString() {
+        return "Piloto{" +
+                "nomePiloto='" + nomePiloto + '\'' +
+                ", chuvaTempoSeco=" + chuvaTempoSeco +
+                ", segurancaAgressividade=" + segurancaAgressividade +
+                '}';
+    }
 }
