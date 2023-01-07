@@ -38,12 +38,12 @@ public class Simulacao {
     }
 
     private double determinaUltrapassagem(double cilindrada, double potencia, double biasPiloto, double periciaPiloto) {
-        double ccPercentil = cilindrada * ThreadLocalRandom.current().nextDouble(.0001, 1.0001);
-        double cvPercentil = potencia * ThreadLocalRandom.current().nextDouble(.0001, 1.0001);
-        periciaPiloto = condicaoMeteorologica == CHUVA
-            ? periciaPiloto
-            : 1. - periciaPiloto;
-        periciaPiloto *= ThreadLocalRandom.current().nextDouble(.0001, 1.0001);
+        double ccPercentil = cilindrada * ThreadLocalRandom.current().nextInt(1, 10001) / 10000.;
+        double cvPercentil = potencia * ThreadLocalRandom.current().nextInt(1, 10001) / 10000.;
+        if(condicaoMeteorologica == CHUVA) {
+            periciaPiloto = 1. - periciaPiloto;
+        }
+        periciaPiloto *= ThreadLocalRandom.current().nextInt(1, 10001) / 10000.;
         return ((ccPercentil / cilindrada) * .2) +
             ((cvPercentil / potencia) * .3) +
             (biasPiloto * .2) +
@@ -64,7 +64,7 @@ public class Simulacao {
             .map(SeccaoCircuito::clone)
             .collect(Collectors.toCollection(ArrayDeque::new));
 
-        var result = new TreeSet<>(Comparator.comparingInt(Iteracao::getnIteracao));
+        TreeSet<Iteracao> result = new TreeSet<>(Comparator.comparingInt(Iteracao::getnIteracao));
         int size = seccoes.size();
         for(var i = 0; i < size; ++i) {
             result.add(simula(seccoes));
