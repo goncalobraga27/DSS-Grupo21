@@ -32,7 +32,7 @@ public class Circuito {
          * cada curva tem no meio uma reta, mesma coisa com chicanes,
          * mas hÃ¡ pelo menos uma reta a ligar uma curva e uma chicane
          */
-        this.n_retas = (n_curvas - 1) + n_chicanes;
+        this.n_retas = (n_curvas + 1) + n_chicanes;
         this.n_chicanes = n_chicanes;
         this.n_curvas = n_curvas;
         this.n_voltas = n_voltas;
