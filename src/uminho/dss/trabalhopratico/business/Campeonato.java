@@ -59,8 +59,9 @@ public class Campeonato {
     @Override
     public String toString() {
         return "Campeonato{" +
-                "name='" + name + '\'' +
-                ", lc=" + lc +
+                "name='" + name +
+                ",LISTA DE CORRIDAS"+
+                lc +
                 '}';
     }
 }

@@ -17,8 +17,8 @@ public class GestCampeonatos implements IGestCampeonatos {
 
     public GestCampeonatos () {
         this.carros= CarroDAO.getInstance();
-        this.campeonatos= CampeonatoDAO.getInstance();
         this.circuitos= CircuitoDAO.getInstance();
+        this.campeonatos= CampeonatoDAO.getInstance();
         this.pilotos= PilotoDAO.getInstance();
     }
 
@@ -89,6 +89,10 @@ public class GestCampeonatos implements IGestCampeonatos {
 
     public Piloto getPiloto(String nomePiloto){return this.pilotos.get(nomePiloto);}
 
+    public Collection <Piloto> getPilotos(){
+        return this.pilotos.values().stream().toList();
+    }
+
     public Campeonato getCampeonato(String nome){
         Campeonato c = new Campeonato();
         c=this.campeonatos.get(nome);
@@ -98,9 +102,16 @@ public class GestCampeonatos implements IGestCampeonatos {
         }
         return  new Campeonato(nome,lCirc);
     }
+    public Collection<Campeonato> getCampeonatos() {
+        return this.campeonatos.values().stream().toList();
+    }
 
     public Carro getCarro(String marcaModelo){
         return this.carros.get(marcaModelo);
+    }
+
+    public Collection <Carro> getCarros(){
+        return this.carros.values().stream().toList();
     }
 
 }

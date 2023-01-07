@@ -47,7 +47,7 @@ public class Iteracao implements Comparable<Iteracao> {
         int i = 0;
         for(Registo r : resultados) {
             ++i;
-            builder.append(i).append(r.toString()).append("\n");
+            builder.append(i).append(r.toString()).append(r.getProbUltrapassar()).append("\n");
         }
         return builder.toString();
     }

@@ -19,17 +19,16 @@ public class Main {
                 "Adicionar Piloto",
                 "Adicionar Campeonato",
                 "Adicionar Carro",
+                "Jogar",
         });
 
-        menu.setPreCondition(1,()-> !logged);
-        menu.setPreCondition(2,()-> !logged);
-        /*
-        menu.setPreCondition(3,()-> logged );
-        menu.setPreCondition(4,()-> logged );
-        menu.setPreCondition(5,()-> logged );
-        menu.setPreCondition(6,()-> logged );
-        menu.setPreCondition(7,()-> logged );
-        */
+        menu.setPreCondition(1,()-> !menu.isPlayer && !menu.isAdmin);
+        menu.setPreCondition(2,()-> !menu.isPlayer && !menu.isAdmin);
+        menu.setPreCondition(3,()-> menu.isAdmin);
+        menu.setPreCondition(4,()-> menu.isAdmin);
+        menu.setPreCondition(5,()-> menu.isAdmin);
+        menu.setPreCondition(6,()-> menu.isAdmin);
+        menu.setPreCondition(7,()-> menu.isPlayer);
 
 
         menu.setHandler(1,()->{
@@ -73,10 +72,16 @@ public class Main {
                     System.out.println("Insira a sua password!");
                     String password = scann.nextLine();
                     if (tom==1) {
-                        System.out.println(f1m.validaJogador(username, password));
+                        if(f1m.validaJogador(username, password)){
+                            menu.isPlayer=true;
+                            menu.username=username;
+                        }
                     }
                     else {
-                        System.out.println(f1m.validaAdministrador(username,password));
+                        if(f1m.validaAdministrador(username,password)){
+                            menu.isAdmin=true;
+                        }
+
                     }
                 }
             }
@@ -272,35 +277,34 @@ public class Main {
                 System.out.println("Dados inválidos");
             }
         });
-/*
         menu.setHandler(7,()->{
             try {
-                System.out.println("Insira a posiçao de x");
-                int posx = scann.nextInt();
-                System.out.println("Insira a posição de y");
-                int posy = scann.nextInt();
-                System.out.println("Defina a distância máxima a que pretende encontrar as trotinetes!");
-                int dist = scann.nextInt();
+                Collection<Campeonato> champ= f1m.getCampeonatos();
+                for (Campeonato c : champ) {
+                    System.out.println(c.toString());
+                }
+                System.out.println("Escolha um campeonato:");
+                String nomeChamp= scann.nextLine();
+                System.out.println("Os pilotos disponíveis são:");
+                Collection<Piloto> plts=f1m.getPilotos();
+                for(Piloto p :plts){
+                    System.out.println(p.toString());
+                }
+                System.out.println("Escolha um piloto:");
+                String nomePiloto= scann.nextLine();
+                System.out.println("Os carros disponiveis são:");
+                Collection<Carro> cars=f1m.getCarros();
+                for(Carro c:cars){
+                    System.out.println(c.toString());
+                }
+                System.out.println("Escolha um carro:");
+                String marcaModelo= scann.nextLine();
+                f1m.simula(marcaModelo,nomePiloto,menu.username,nomeChamp);
             }
             catch (Exception e) {
                 System.out.println("Dados inválidos");
             }
         });
-
- */
-
-        Registo r1= new Registo(1,f1m.getCarro("Porsche 911 GT3 cup "),f1m.getPiloto("Miguel"),f1m.getJogador("goncalo"));
-        Registo r2= new Registo(2,f1m.getCarro("Pagani  Huarya R"),f1m.getPiloto("André"),f1m.getJogador("bot"));
-        Map<Integer, Registo> regs=new HashMap<>();
-        regs.put(1,r1);
-        regs.put(2,r2);
-        List<Circuito> c = (List<Circuito>) f1m.getCircuitos();
-        Circuito cS= (Circuito) c.get(0);
-        Simulacao s = new Simulacao(regs,cS);
-        Iteracao it=s.simula();
-        System.out.println(it.toString());
-        Iteracao it1=s.simula();
-        System.out.println(it1.toString());
         menu.run();
     }
 }

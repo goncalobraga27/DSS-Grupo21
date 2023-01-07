@@ -226,7 +226,7 @@ public class CarroDAO implements Map<String, Carro> {
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();) {
             // apagar os carros
-            stm.executeUpdate("DELETE FROM carros WHERE Id='"+key+"'");
+            stm.executeUpdate("DELETE FROM carros WHERE MarcaModelo='"+key+"'");
         } catch (Exception e) {
             // Database error!
             e.printStackTrace();
@@ -267,9 +267,9 @@ public class CarroDAO implements Map<String, Carro> {
         Collection<Carro> res = new HashSet<>();
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT Id FROM carros")) { // ResultSet com os ids de todas as turmas
+             ResultSet rs = stm.executeQuery("SELECT MarcaModelo FROM carros")) { // ResultSet com os ids de todas as turmas
             while (rs.next()) {
-                String idC = rs.getString("Id"); // Obtemos um id do carro do ResultSet
+                String idC = rs.getString("MarcaModelo"); // Obtemos um id do carro do ResultSet
                 Carro c = this.get(idC);                    // Utilizamos o get para construir os carros uma a uma
                 res.add(c);                                 // Adiciona o carro ao resultado.
             }

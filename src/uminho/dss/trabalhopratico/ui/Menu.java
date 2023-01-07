@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    public boolean logged;
+    public boolean isAdmin;
+    public boolean isPlayer;
+
+    public String username;
     /**
      * Functional interface para handlers.
      */

@@ -199,7 +199,7 @@ public class CampeonatoDAO implements Map<String, Campeonato> {
         Collection<Campeonato> res = new HashSet<>();
         try (Connection conn = DriverManager.getConnection(DAOconfig.URL, DAOconfig.USERNAME, DAOconfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT NomeCamp FROM campeonatos")) { // ResultSet com os ids de todas as turmas
+             ResultSet rs = stm.executeQuery("SELECT distinct NomeCamp FROM campeonatos")) { // ResultSet com os ids de todas as turmas
             while (rs.next()) {
                 String idC = rs.getString(1);
                 Campeonato c = this.get(idC);

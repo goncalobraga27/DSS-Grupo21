@@ -24,6 +24,10 @@ public class Simulacao {
         this.condicaoMeteorologica = (ThreadLocalRandom.current().nextInt(SECO, CHUVA * 99) % 2) - 1;
     }
 
+    public Deque<SeccaoCircuito> getSeccoesCircuito() {
+        return seccoesCircuito;
+    }
+
     private boolean avariou(Carro c) {
         return (ThreadLocalRandom.current().nextDouble(0, 9999) % 10000) < c.getFiabilidade();
     }
@@ -50,9 +54,23 @@ public class Simulacao {
         return determinaUltrapassagem(cilindrada, potencia, biasPiloto, periciaPiloto);
     }
 
-    public Iteracao simula() {
+    public TreeSet<Iteracao> simulaVolta() {
+        Deque<SeccaoCircuito> seccoes = this.seccoesCircuito.stream()
+                .map(SeccaoCircuito::clone)
+                .collect(Collectors.toCollection(ArrayDeque::new));
+        var result = new TreeSet<>(Comparator.comparingInt(Iteracao::getnIteracao));
+        int size = seccoes.size();
+        for(var i = 0; i < size; ++i) {
+            result.add(simula(seccoes));
+        }
+        return result;
+    }
+
+    // é para ser usado com um iterator
+    public Iteracao simula(Deque<SeccaoCircuito> sc) {
         if(this.iteracoes.size() == 0) {
             Iteracao cur = new Iteracao(this.nomeCircuito, 0);
+            this.iteracoes.add(cur);
             cur.setResultados(new TreeSet<>(lr));
             return cur;
         }
@@ -60,14 +78,15 @@ public class Simulacao {
         Iteracao cur = new Iteracao(this.nomeCircuito, prev.getnIteracao() + 1);
 
         TreeSet<Registo> novosResultados = new TreeSet<>((r1, r2) -> Double.compare(r2.getProbUltrapassar(), r1.getProbUltrapassar()));
-        SeccaoCircuito seccao = Objects.requireNonNull(seccoesCircuito.poll());
+        SeccaoCircuito seccao = Objects.requireNonNull(sc.poll());
         for(Registo r : prev.getResultados()) {
-            double probabilidadeUltrapassar = probabilidadeUltrapassar(r);
-            if(Double.compare(0., probabilidadeUltrapassar) != 0.) {
-                r.setProbUltrapassar((probabilidadeUltrapassar * .3) * (seccao.getGDU() * .7));
-                novosResultados.add(r);
+            if(Double.compare(-1., r.getProbUltrapassar()) != 0.) {
+                double probabilidadeUltrapassar = probabilidadeUltrapassar(r);
+                r.setProbUltrapassar((probabilidadeUltrapassar * .9) * (seccao.getGDU() * .1));
             }
+            novosResultados.add(r);
         }
+        this.iteracoes.add(cur);
         cur.setResultados(novosResultados);
         return cur;
     }
