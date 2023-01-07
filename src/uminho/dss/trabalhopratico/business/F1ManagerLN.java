@@ -6,6 +6,11 @@ import uminho.dss.trabalhopratico.Campeonato.GestCampeonatos;
 import uminho.dss.trabalhopratico.Campeonato.SeccaoCircuito;
 import uminho.dss.trabalhopratico.Carro.Carro;
 import uminho.dss.trabalhopratico.Piloto.Piloto;
+import uminho.dss.trabalhopratico.Registo.Iteracao;
+import uminho.dss.trabalhopratico.Registo.Registo;
+import uminho.dss.trabalhopratico.Simulacao.Simulacao;
+import uminho.dss.trabalhopratico.Utilizador.GestUtilizadores;
+import uminho.dss.trabalhopratico.Utilizador.Jogador;
 
 
 import java.util.*;

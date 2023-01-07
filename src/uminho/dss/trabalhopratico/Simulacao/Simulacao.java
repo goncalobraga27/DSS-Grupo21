@@ -1,9 +1,11 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Simulacao;
 
 import uminho.dss.trabalhopratico.Campeonato.Circuito;
 import uminho.dss.trabalhopratico.Campeonato.SeccaoCircuito;
 import uminho.dss.trabalhopratico.Carro.Carro;
 import uminho.dss.trabalhopratico.Piloto.Piloto;
+import uminho.dss.trabalhopratico.Registo.Iteracao;
+import uminho.dss.trabalhopratico.Registo.Registo;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -98,5 +100,4 @@ public class Simulacao {
         this.iteracoes.add(cur);
         return cur;
     }
-
 }

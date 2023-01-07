@@ -1,7 +1,8 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Registo;
 
 import uminho.dss.trabalhopratico.Carro.Carro;
 import uminho.dss.trabalhopratico.Piloto.Piloto;
+import uminho.dss.trabalhopratico.Utilizador.Jogador;
 
 import java.time.LocalDateTime;
 
@@ -33,15 +34,14 @@ public class Registo implements Comparable<Registo> {
         this.dataRegisto = LocalDateTime.from(that.dataRegisto);
         this.probUltrapassar = that.probUltrapassar;
     }
+
     @Override
     public int compareTo(Registo r) {
-        if (r.probUltrapassar*1000>this.probUltrapassar*1000){
+        if (r.probUltrapassar * 1000 > this.probUltrapassar * 1000) {
             return -1;
-        }
-        else if (r.probUltrapassar*1000==this.probUltrapassar*1000){
-            return dataRegisto.compareTo(r.getDataRegisto());
-        }
-        else {
+        } else if (r.probUltrapassar * 1000 == this.probUltrapassar * 1000) {
+            return dataRegisto.compareTo(r.dataRegisto);
+        } else {
             return 1;
         }
     }

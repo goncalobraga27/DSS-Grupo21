@@ -1,5 +1,5 @@
 package uminho.dss.trabalhopratico.data;
-import uminho.dss.trabalhopratico.business.Administrador;
+import uminho.dss.trabalhopratico.Utilizador.Administrador;
 
 import java.sql.*;
 import java.util.Collection;

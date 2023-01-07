@@ -1,6 +1,4 @@
-package uminho.dss.trabalhopratico.business;
-
-import java.util.Objects;
+package uminho.dss.trabalhopratico.Utilizador;
 
 public class Administrador extends Utilizador {
 

@@ -1,10 +1,7 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Registo;
 
 import java.util.Comparator;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 public class Iteracao implements Comparable<Iteracao> {
     private final TreeSet<Registo> resultados;

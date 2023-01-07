@@ -1,4 +1,4 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Utilizador;
 
 public class Jogador extends Utilizador {
     private int pontuacao;

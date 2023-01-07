@@ -1,5 +1,4 @@
-
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Utilizador;
 
 public interface IGestUtilizadores {
     public void addJogador(String username, String password);

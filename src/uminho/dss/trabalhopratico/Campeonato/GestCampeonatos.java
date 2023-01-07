@@ -2,7 +2,6 @@ package uminho.dss.trabalhopratico.Campeonato;
 
 import uminho.dss.trabalhopratico.Carro.*;
 import uminho.dss.trabalhopratico.Piloto.Piloto;
-import uminho.dss.trabalhopratico.business.IGestCampeonatos;
 import uminho.dss.trabalhopratico.data.CampeonatoDAO;
 import uminho.dss.trabalhopratico.data.CarroDAO;
 import uminho.dss.trabalhopratico.data.CircuitoDAO;

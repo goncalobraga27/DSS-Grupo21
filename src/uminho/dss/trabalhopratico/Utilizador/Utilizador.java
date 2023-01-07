@@ -1,6 +1,4 @@
-package uminho.dss.trabalhopratico.business;
-
-import java.util.Objects;
+package uminho.dss.trabalhopratico.Utilizador;
 
 public abstract class Utilizador {
     private String password;

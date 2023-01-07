@@ -1,4 +1,4 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Utilizador;
 
 import uminho.dss.trabalhopratico.data.AdministradorDAO;
 import uminho.dss.trabalhopratico.data.JogadorDAO;
