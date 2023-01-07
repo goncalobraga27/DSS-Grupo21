@@ -40,10 +40,6 @@ public class Piloto {
 
     @Override
     public String toString() {
-        return "Piloto{" +
-                "nomePiloto='" + nomePiloto + '\'' +
-                ", chuvaTempoSeco=" + chuvaTempoSeco +
-                ", segurancaAgressividade=" + segurancaAgressividade +
-                '}';
+        return this.nomePiloto;
     }
 }
