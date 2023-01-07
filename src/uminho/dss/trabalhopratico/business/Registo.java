@@ -31,11 +31,19 @@ public class Registo implements Comparable<Registo> {
         this.piloto = that.piloto.clone();
         this.jogador = that.jogador.clone();
         this.dataRegisto = LocalDateTime.from(that.dataRegisto);
-        this.probUltrapassar = 1.;
+        this.probUltrapassar = that.probUltrapassar;
     }
-
+    @Override
     public int compareTo(Registo r) {
-        return dataRegisto.compareTo(r.getDataRegisto());
+        if (r.probUltrapassar*1000>this.probUltrapassar*1000){
+            return -1;
+        }
+        else if (r.probUltrapassar*1000==this.probUltrapassar*1000){
+            return dataRegisto.compareTo(r.getDataRegisto());
+        }
+        else {
+            return 1;
+        }
     }
 
     public double getProbUltrapassar() {
@@ -90,7 +98,7 @@ public class Registo implements Comparable<Registo> {
     @Override
     public String toString() {
         return String.format(
-            "%" + 32 + "s | %" + 32 + "s | %" + 32 + "s",
+            "%" + 32 + "s | %" + 32 + "s | %" + 32 + "s" ,
             jogador.getNomeUtilizador(),
             piloto.getNomePiloto(),
             carro.getMarca()

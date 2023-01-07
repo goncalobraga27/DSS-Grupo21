@@ -77,23 +77,26 @@ public class Simulacao {
         if(this.iteracoes.size() == 0) {
             Iteracao cur = new Iteracao(this.nomeCircuito, 0);
             this.iteracoes.add(cur);
-            cur.setResultados(new TreeSet<>(lr));
+            cur.setResultados(new TreeSet<>(this.lr));
             return cur;
         }
         Iteracao prev = this.iteracoes.last();
         Iteracao cur = new Iteracao(this.nomeCircuito, prev.getnIteracao() + 1);
 
-        TreeSet<Registo> novosResultados = new TreeSet<>((r1, r2) -> Double.compare(r2.getProbUltrapassar(), r1.getProbUltrapassar()));
+        TreeSet<Registo> novosResultados = new TreeSet<>();
         SeccaoCircuito seccao = Objects.requireNonNull(sc.poll());
         for(Registo r : prev.getResultados()) {
-            if(Double.compare(-1., r.getProbUltrapassar()) > 0.) {
-                double probabilidadeUltrapassar = probabilidadeUltrapassar(r);
-                r.setProbUltrapassar((probabilidadeUltrapassar * .65) * (seccao.getGDU() * .35));
+            Registo newR = r.clone();
+            if(Double.compare(-1., r.getProbUltrapassar()) != 0.) {
+                double probabilidadeUltrapassar = probabilidadeUltrapassar(newR);
+                newR.setProbUltrapassar((probabilidadeUltrapassar * .65) + (seccao.getGDU() * .35));
+                novosResultados.add(newR);
             }
-            novosResultados.add(r);
+            novosResultados.add(newR);
         }
-        this.iteracoes.add(cur);
         cur.setResultados(novosResultados);
+        this.iteracoes.add(cur);
         return cur;
     }
+
 }

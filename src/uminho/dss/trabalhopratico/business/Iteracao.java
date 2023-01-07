@@ -14,7 +14,7 @@ public class Iteracao implements Comparable<Iteracao> {
     public Iteracao(String nomeCorrida, int nIteracao) {
         this.nomeCorrida = nomeCorrida;
         this.nIteracao = nIteracao;
-        this.resultados = new TreeSet<>();
+        this.resultados = new TreeSet<>(Comparator.naturalOrder());
     }
 
     // o comparator disto é relativo a uma ultrapassagem... espero mesmo que isto não implique mudanças
@@ -47,7 +47,7 @@ public class Iteracao implements Comparable<Iteracao> {
         int i = 0;
         for(Registo r : resultados) {
             ++i;
-            builder.append(i).append(r.toString()).append(r.getProbUltrapassar()).append("\n");
+            builder.append(i).append(r.toString()).append("\n");
         }
         return builder.toString();
     }

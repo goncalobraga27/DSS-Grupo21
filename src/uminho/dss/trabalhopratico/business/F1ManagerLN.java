@@ -109,6 +109,7 @@ public class F1ManagerLN {
         for( Circuito c: lc) {
             Simulacao s = new Simulacao(regs, c);
             for(int i=1;i<=c.getN_voltas();i++) {
+                System.out.println("Voltas:"+i+"/"+c.getN_voltas());
                 TreeSet<Iteracao> it = s.simulaVolta();
                 it.forEach(its->System.out.println(its.toString()));
             }
