@@ -1,6 +1,6 @@
 package uminho.dss.trabalhopratico.data;
 
-import uminho.dss.trabalhopratico.business.*;
+import uminho.dss.trabalhopratico.Carro.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -1,19 +1,20 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Campeonato;
 
+import uminho.dss.trabalhopratico.Carro.*;
+import uminho.dss.trabalhopratico.Piloto.Piloto;
+import uminho.dss.trabalhopratico.business.IGestCampeonatos;
 import uminho.dss.trabalhopratico.data.CampeonatoDAO;
 import uminho.dss.trabalhopratico.data.CarroDAO;
 import uminho.dss.trabalhopratico.data.CircuitoDAO;
 import uminho.dss.trabalhopratico.data.PilotoDAO;
 
-import java.sql.Array;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class GestCampeonatos implements IGestCampeonatos {
     private Map<String, Carro> carros;
     private Map<String, Campeonato> campeonatos;
     private Map<String, Circuito> circuitos;
-    private Map<String,Piloto> pilotos;
+    private Map<String, Piloto> pilotos;
 
     public GestCampeonatos () {
         this.carros= CarroDAO.getInstance();

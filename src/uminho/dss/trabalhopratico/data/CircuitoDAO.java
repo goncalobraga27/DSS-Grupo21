@@ -1,7 +1,7 @@
 package uminho.dss.trabalhopratico.data;
 
-import uminho.dss.trabalhopratico.business.Circuito;
-import uminho.dss.trabalhopratico.business.SeccaoCircuito;
+import uminho.dss.trabalhopratico.Campeonato.Circuito;
+import uminho.dss.trabalhopratico.Campeonato.SeccaoCircuito;
 
 import java.sql.*;
 import java.util.*;

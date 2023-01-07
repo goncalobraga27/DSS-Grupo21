@@ -1,5 +1,8 @@
 package uminho.dss.trabalhopratico.business;
 
+import uminho.dss.trabalhopratico.Campeonato.Campeonato;
+import uminho.dss.trabalhopratico.Carro.Carro;
+
 import java.util.*;
 import java.util.stream.Collectors;
 

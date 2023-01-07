@@ -1,7 +1,7 @@
 package uminho.dss.trabalhopratico.business;
 
-import uminho.dss.trabalhopratico.business.Carro;
-import uminho.dss.trabalhopratico.business.Piloto;
+import uminho.dss.trabalhopratico.Carro.Carro;
+import uminho.dss.trabalhopratico.Piloto.Piloto;
 
 import java.time.LocalDateTime;
 
@@ -89,7 +89,6 @@ public class Registo implements Comparable<Registo> {
 
     @Override
     public String toString() {
-        // return jogador.getNomeUtilizador() + " | " + piloto.getNomePiloto() + " | " + carro.getMarca();
         return String.format(
             "%" + 32 + "s | %" + 32 + "s | %" + 32 + "s",
             jogador.getNomeUtilizador(),

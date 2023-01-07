@@ -1,4 +1,4 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Carro;
 
 public abstract class Carro {
     private String Id;
@@ -74,11 +74,6 @@ public abstract class Carro {
 
     @Override
     public String toString() {
-        return "Carro{" +
-                "Marca='" + marca + '\'' +
-                ", cilindrada=" + cilindrada +
-                ", potencia=" + potencia +
-                ", fiabilidade=" + fiabilidade +
-                '}';
+        return this.marca;
     }
 }

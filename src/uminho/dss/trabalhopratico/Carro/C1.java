@@ -1,6 +1,4 @@
-package uminho.dss.trabalhopratico.business;
-
-import uminho.dss.trabalhopratico.business.Carro;
+package uminho.dss.trabalhopratico.Carro;
 
 public class C1 extends Carro {
 
@@ -23,6 +21,6 @@ public class C1 extends Carro {
 
     @Override
     public String toString() {
-        return "C1{"+super.toString()+"}";
+        return super.toString() + " |C1|";
     }
 }

@@ -1,4 +1,4 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Carro;
 
 public class GT extends Carro {
 
@@ -33,8 +33,6 @@ public class GT extends Carro {
 
     @Override
     public String toString() {
-        return "GT{" +super.toString()+
-                "taxa_degradacao=" + taxa_degradacao +
-                '}';
+        return super.toString() + " |GT|";
     }
 }

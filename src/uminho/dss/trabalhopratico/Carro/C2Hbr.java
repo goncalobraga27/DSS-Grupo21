@@ -1,14 +1,14 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Carro;
 
-public class C1Hbr extends C1 {
+public class C2Hbr extends C2{
     private int motor_eletrico;
 
-    public C1Hbr(String marca, String modelo,int potencia,int eletrico) {
-        super(marca, modelo,potencia);
+    public C2Hbr(String marca, String modelo,int cilindrada,int potencia,int eletrico) {
+        super(marca,modelo,cilindrada,potencia);
         this.motor_eletrico = eletrico;
     }
 
-    public C1Hbr(C1Hbr p) {
+    public C2Hbr(C2Hbr p) {
         super(p);
         this.motor_eletrico = p.motor_eletrico;
     }
@@ -21,15 +21,13 @@ public class C1Hbr extends C1 {
         this.motor_eletrico = motor_eletrico;
     }
 
-    public C1Hbr clone() {
-        return new C1Hbr(this);
+    public C2Hbr clone() {
+        return new C2Hbr(this);
     }
-
 
     @Override
     public String toString() {
-        return "C1Hbr{" +super.toString()+
-                "motor_eletrico=" + motor_eletrico +
-                '}';
+        return super.toString() + " |C2 Híbrido|";
     }
 }
+

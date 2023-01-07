@@ -1,5 +1,10 @@
 package uminho.dss.trabalhopratico.business;
 
+import uminho.dss.trabalhopratico.Campeonato.Circuito;
+import uminho.dss.trabalhopratico.Campeonato.SeccaoCircuito;
+import uminho.dss.trabalhopratico.Carro.Carro;
+import uminho.dss.trabalhopratico.Piloto.Piloto;
+
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -33,31 +38,32 @@ public class Simulacao {
     }
 
     private double determinaUltrapassagem(double cilindrada, double potencia, double biasPiloto, double periciaPiloto) {
-        cilindrada += ThreadLocalRandom.current().nextDouble(-.99, .99);
-        potencia += ThreadLocalRandom.current().nextDouble(-.99, .99);
+        double ccPercentil = cilindrada * ThreadLocalRandom.current().nextDouble(.0001, 1.0001);
+        double cvPercentil = potencia * ThreadLocalRandom.current().nextDouble(.0001, 1.0001);
         periciaPiloto = condicaoMeteorologica == CHUVA
             ? periciaPiloto
             : 1. - periciaPiloto;
-        return (cilindrada * .2) + (potencia * .3) + (biasPiloto * .2) + (periciaPiloto * .3);
+        periciaPiloto *= ThreadLocalRandom.current().nextDouble(.0001, 1.0001);
+        return ((ccPercentil / cilindrada) * .2) +
+            ((cvPercentil / potencia) * .3) +
+            (biasPiloto * .2) +
+            (periciaPiloto * .3);
     }
 
     private double probabilidadeUltrapassar(Registo r) {
         Carro c = r.getCarro();
         if(avariou(c)) {
-            return 0.;
+            return -1.;
         }
-        double cilindrada = c.getCilindrada();
-        double potencia = c.getPotencia();
         Piloto p = r.getPiloto();
-        double biasPiloto = p.getSegurancaAgressividade();
-        double periciaPiloto = p.getChuvaTempoSeco();
-        return determinaUltrapassagem(cilindrada, potencia, biasPiloto, periciaPiloto);
+        return determinaUltrapassagem(c.getCilindrada(), c.getPotencia(), p.getSegurancaAgressividade(), p.getChuvaTempoSeco());
     }
 
     public TreeSet<Iteracao> simulaVolta() {
         Deque<SeccaoCircuito> seccoes = this.seccoesCircuito.stream()
-                .map(SeccaoCircuito::clone)
-                .collect(Collectors.toCollection(ArrayDeque::new));
+            .map(SeccaoCircuito::clone)
+            .collect(Collectors.toCollection(ArrayDeque::new));
+
         var result = new TreeSet<>(Comparator.comparingInt(Iteracao::getnIteracao));
         int size = seccoes.size();
         for(var i = 0; i < size; ++i) {
@@ -80,9 +86,9 @@ public class Simulacao {
         TreeSet<Registo> novosResultados = new TreeSet<>((r1, r2) -> Double.compare(r2.getProbUltrapassar(), r1.getProbUltrapassar()));
         SeccaoCircuito seccao = Objects.requireNonNull(sc.poll());
         for(Registo r : prev.getResultados()) {
-            if(Double.compare(-1., r.getProbUltrapassar()) != 0.) {
+            if(Double.compare(-1., r.getProbUltrapassar()) > 0.) {
                 double probabilidadeUltrapassar = probabilidadeUltrapassar(r);
-                r.setProbUltrapassar((probabilidadeUltrapassar * .9) * (seccao.getGDU() * .1));
+                r.setProbUltrapassar((probabilidadeUltrapassar * .65) * (seccao.getGDU() * .35));
             }
             novosResultados.add(r);
         }

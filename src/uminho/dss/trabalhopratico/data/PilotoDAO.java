@@ -1,9 +1,7 @@
 package uminho.dss.trabalhopratico.data;
 
 
-import uminho.dss.trabalhopratico.business.Circuito;
-import uminho.dss.trabalhopratico.business.Piloto;
-import uminho.dss.trabalhopratico.business.Piloto;
+import uminho.dss.trabalhopratico.Piloto.Piloto;
 
 import java.sql.*;
 import java.util.Collection;

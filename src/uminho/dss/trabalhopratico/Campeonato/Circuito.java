@@ -1,4 +1,4 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Campeonato;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

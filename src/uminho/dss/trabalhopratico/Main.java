@@ -1,5 +1,8 @@
 package uminho.dss.trabalhopratico;
 
+import uminho.dss.trabalhopratico.Campeonato.Campeonato;
+import uminho.dss.trabalhopratico.Campeonato.Circuito;
+import uminho.dss.trabalhopratico.Campeonato.SeccaoCircuito;
 import uminho.dss.trabalhopratico.business.*;
 import uminho.dss.trabalhopratico.ui.Menu;
 

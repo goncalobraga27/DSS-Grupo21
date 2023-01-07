@@ -48,9 +48,6 @@ public abstract class Utilizador {
 
     @Override
     public String toString() {
-        return "Utilizador{" +
-                "password='" + password + '\'' +
-                ", nomeUtilizador='" + nomeUtilizador + '\'' +
-                '}';
+        return "Utilizador: " + this.nomeUtilizador;
     }
 }

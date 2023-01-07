@@ -1,6 +1,5 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Campeonato;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;

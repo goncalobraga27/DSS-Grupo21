@@ -1,8 +1,7 @@
 package uminho.dss.trabalhopratico.data;
 
-import uminho.dss.trabalhopratico.business.Campeonato;
-import uminho.dss.trabalhopratico.business.Circuito;
-import uminho.dss.trabalhopratico.data.CircuitoDAO;
+import uminho.dss.trabalhopratico.Campeonato.Campeonato;
+import uminho.dss.trabalhopratico.Campeonato.Circuito;
 
 import java.sql.Connection;
 import java.sql.SQLException;

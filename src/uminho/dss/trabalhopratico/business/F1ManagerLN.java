@@ -1,13 +1,14 @@
 package uminho.dss.trabalhopratico.business;
 
-import uminho.dss.trabalhopratico.data.CampeonatoDAO;
-import uminho.dss.trabalhopratico.data.CarroDAO;
-import uminho.dss.trabalhopratico.data.CircuitoDAO;
-import uminho.dss.trabalhopratico.data.PilotoDAO;
+import uminho.dss.trabalhopratico.Campeonato.Campeonato;
+import uminho.dss.trabalhopratico.Campeonato.Circuito;
+import uminho.dss.trabalhopratico.Campeonato.GestCampeonatos;
+import uminho.dss.trabalhopratico.Campeonato.SeccaoCircuito;
+import uminho.dss.trabalhopratico.Carro.Carro;
+import uminho.dss.trabalhopratico.Piloto.Piloto;
+
 
 import java.util.*;
-
-import static java.awt.SystemColor.menu;
 
 public class F1ManagerLN {
     private GestCampeonatos campeonatos;
@@ -85,7 +86,7 @@ public class F1ManagerLN {
         return this.campeonatos.getPiloto(nomePiloto);
     }
     public Collection<Piloto> getPilotos(){return this.campeonatos.getPilotos();}
-    public  Campeonato getCampeonato(String nome){
+    public Campeonato getCampeonato(String nome){
         return this.campeonatos.getCampeonato(nome);
     }
     public Carro getCarro(String MarcaModelo){return this.campeonatos.getCarro(MarcaModelo);}

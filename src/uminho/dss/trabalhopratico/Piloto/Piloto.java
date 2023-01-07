@@ -1,4 +1,4 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Piloto;
 
 public class Piloto {
 

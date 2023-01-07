@@ -1,4 +1,4 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Carro;
 
 public class SC extends Carro {
     public SC(SC that) {
@@ -15,6 +15,6 @@ public class SC extends Carro {
 
     @Override
     public String toString() {
-        return "SC{"+super.toString()+"}";
+        return super.toString() + " |SC|";
     }
 }

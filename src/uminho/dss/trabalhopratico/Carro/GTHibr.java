@@ -1,4 +1,4 @@
-package uminho.dss.trabalhopratico.business;
+package uminho.dss.trabalhopratico.Carro;
 
 public class GTHibr extends GT {
     private int motor_eletrico;
@@ -27,8 +27,6 @@ public class GTHibr extends GT {
 
     @Override
     public String toString() {
-        return "GTHibr{" +super.toString()+
-                "motor_eletrico=" + motor_eletrico +
-                '}';
+        return super.toString() + " |GT Híbrido|";
     }
 }
